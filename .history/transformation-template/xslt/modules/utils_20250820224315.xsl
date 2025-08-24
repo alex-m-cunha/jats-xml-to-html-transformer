@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-xmlns:xlink="http://www.w3.org/1999/xlink"
-exclude-result-prefixes="xlink">
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  exclude-result-prefixes="xlink">
 
   <!-- Keys to find back-matter targets -->
   <xsl:key name="refById" match="article/back/ref-list/ref" use="@id"/>
@@ -48,5 +48,5 @@ exclude-result-prefixes="xlink">
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
 </xsl:stylesheet>

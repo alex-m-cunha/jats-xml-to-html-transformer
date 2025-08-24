@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-xmlns:xlink="http://www.w3.org/1999/xlink"
-exclude-result-prefixes="xlink">
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  exclude-result-prefixes="xlink">
 
   <!-- Header masthead -->
   <xsl:template match="front" mode="masthead">
     <header class="article-header">
       <h1 class="article-title">
-        <xsl:apply-templates select="article-meta/title-group/article-title"/>
+        <xsl:value-of select="article-meta/title-group/article-title"/>
       </h1>
       <xsl:if test="article-meta/title-group/subtitle">
         <h2 class="article-subtitle">
-          <xsl:apply-templates select="article-meta/title-group/subtitle"/>
+          <xsl:value-of select="article-meta/title-group/subtitle"/>
         </h2>
       </xsl:if>
 
@@ -217,22 +217,22 @@ exclude-result-prefixes="xlink">
             <span aria-hidden="true"> · </span>
           </li>
         </xsl:if>        
-
+        
       </ul>
     </header>
   </xsl:template>
 
-  <!-- Abstract -->
+  <!-- Abstract card for main column -->
   <xsl:template match="front" mode="abstract">
     <xsl:if test="article-meta/abstract">
-      <section class="abstract">
+      <section class="card abstract">
         <h2>Abstract</h2>
         <xsl:apply-templates select="article-meta/abstract/node()"/>
       </section>
     </xsl:if>
   </xsl:template>
 
-  <!-- Right Sidebar -->
+  <!-- Right column IDs panel -->
   <xsl:template match="article-meta" mode="id-panel">
     <section class="card">
       <h3>Identifiers</h3>
@@ -246,13 +246,13 @@ exclude-result-prefixes="xlink">
         <xsl:if test="article-id[@pub-id-type='pmcid']">
           <li>
             <xsl:variable name="pmc" select="normalize-space(article-id[@pub-id-type='pmcid'])"/>
-            <xsl:variable name="pmcLink">
+            <xsl:variable name="pmcFixed">
               <xsl:choose>
                 <xsl:when test="starts-with($pmc,'PMC')"><xsl:value-of select="$pmc"/></xsl:when>
                 <xsl:otherwise>PMC<xsl:value-of select="$pmc"/></xsl:otherwise>
               </xsl:choose>
             </xsl:variable>
-            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/{$pmcLink}/">PMC</a>
+            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/{$pmcFixed}/">PMC</a>
           </li>
         </xsl:if>
         <xsl:if test="article-id[@pub-id-type='publisher-id']">

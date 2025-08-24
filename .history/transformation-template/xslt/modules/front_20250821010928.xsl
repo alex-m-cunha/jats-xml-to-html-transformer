@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-xmlns:xlink="http://www.w3.org/1999/xlink"
-exclude-result-prefixes="xlink">
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  exclude-result-prefixes="xlink">
 
   <!-- Header masthead -->
   <xsl:template match="front" mode="masthead">
@@ -225,14 +225,24 @@ exclude-result-prefixes="xlink">
   <!-- Abstract -->
   <xsl:template match="front" mode="abstract">
     <xsl:if test="article-meta/abstract">
+      <!-- Decide base heading level: h2 if no subtitle, h3 if subtitle exists -->
+      <xsl:variable name="abstract-level">
+        <xsl:choose>
+          <xsl:when test="article-meta/title-group/subtitle">3</xsl:when>
+          <xsl:otherwise>2</xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+
       <section class="abstract">
-        <h2>Abstract</h2>
+        <xsl:element name="{concat('h',$abstract-level)}">
+          Abstract
+        </xsl:element>
         <xsl:apply-templates select="article-meta/abstract/node()"/>
       </section>
     </xsl:if>
   </xsl:template>
 
-  <!-- Right Sidebar -->
+  <!-- Right column IDs panel -->
   <xsl:template match="article-meta" mode="id-panel">
     <section class="card">
       <h3>Identifiers</h3>

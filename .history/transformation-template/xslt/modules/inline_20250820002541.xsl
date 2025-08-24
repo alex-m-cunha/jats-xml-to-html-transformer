@@ -9,32 +9,11 @@
   <xsl:template match="bold"><strong><xsl:apply-templates/></strong></xsl:template>
   <xsl:template match="sup"><sup><xsl:apply-templates/></sup></xsl:template>
   <xsl:template match="sub"><sub><xsl:apply-templates/></sub></xsl:template>
-  <xsl:template match="underline|u"><u><xsl:apply-templates/></u></xsl:template>
-  <xsl:template match="monospace"><code><xsl:apply-templates/></code></xsl:template>
-  <xsl:template match="sc"><span class="sc"><xsl:apply-templates/></span></xsl:template>
 
   <!-- External links -->
   <xsl:template match="uri|ext-link">
-    <xsl:variable name="href" select="normalize-space(@xlink:href)"/>
-    <xsl:choose>
-      <xsl:when test="$href">
-        <a href="{$href}" rel="noopener">
-          <xsl:choose>
-            <xsl:when test="normalize-space(.)">
-              <xsl:apply-templates/>
-            </xsl:when>
-            <xsl:otherwise><xsl:value-of select="$href"/></xsl:otherwise>
-          </xsl:choose>
-        </a>
-      </xsl:when>
-      <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-
-  <!-- Email -->
-  <xsl:template match="email">
-    <a href="mailto:{normalize-space(.)}">
-      <xsl:value-of select="normalize-space(.)"/>
+    <a href="{@xlink:href}">
+      <xsl:apply-templates/>
     </a>
   </xsl:template>
 
@@ -67,21 +46,5 @@
   <!-- XREF: sections/figures/tables (plain anchors) -->
   <xsl:template match="xref[@ref-type='sec' or @ref-type='fig' or @ref-type='table']">
     <a href="#{@rid}"><xsl:apply-templates/></a>
-  </xsl:template>
-
-  <!-- Debug fallback for unknown inline tags -->
-  <xsl:template match="*">
-    <xsl:choose>
-      <xsl:when test="$debug='yes'">
-        <span class="u-unknown-inline">
-          <xsl:text>&lt;</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
-          <xsl:apply-templates/>
-          <xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
-        </span>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:apply-templates/>
-      </xsl:otherwise>
-    </xsl:choose>
   </xsl:template>
 </xsl:stylesheet>

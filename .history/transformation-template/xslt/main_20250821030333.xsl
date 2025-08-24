@@ -4,11 +4,6 @@
   xmlns:xlink="http://www.w3.org/1999/xlink"
   exclude-result-prefixes="xlink">
 
-  <!-- ===== Parameters ===== -->
-  <xsl:param name="assets-path" select="'assets/'" />           <!-- CSS/JS relative folder -->
-  <xsl:param name="pdf-href" select="''" />                 <!-- optional right-aside button -->
-  <xsl:param name="debug" select="'no'"/>
-
   <!-- Tell the processor to generate HTML5-like output -->
   <xsl:output
     method="html"
@@ -18,6 +13,11 @@
 
   <!-- Strip ignorable whitespace to keep output clean -->
   <xsl:strip-space elements="*" />
+
+  <!-- ===== Parameters ===== -->
+  <xsl:param name="assets-path" select="'assets/'" />           <!-- CSS/JS relative folder -->
+  <xsl:param name="pdf-href" select="''" />                 <!-- optional right-aside button -->
+  <xsl:param name="debug" select="'no'" />               <!-- 'yes' = highlight unknown tags -->
 
   <!-- ===== Modules ===== -->
   <xsl:include href="modules/utils.xsl" />
