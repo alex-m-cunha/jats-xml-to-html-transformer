@@ -5,6 +5,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink"
 exclude-result-prefixes="xlink">
 
   <!-- Keys to find back-matter targets -->
+  <xsl:key name="correspById" match="front/article-meta/author-notes/corresp" use="@id"/>
   <xsl:key name="refById" match="article/back/ref-list/ref" use="@id"/>
   <xsl:key name="fnById"  match="article/back/fn-group//fn | //table-wrap//table-wrap-foot//fn" use="@id"/>
   <xsl:key name="affById" match="article/front/article-meta/aff" use="@id"/>
@@ -47,6 +48,12 @@ exclude-result-prefixes="xlink">
         <xsl:apply-templates/>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+  
+  <!-- Prefixes article-img-root to redirect article images -->
+  <xsl:template name="graphic-src">
+    <xsl:param name="href"/>
+    <xsl:value-of select="concat($article-img-root, $href)"/>
   </xsl:template>
   
 </xsl:stylesheet>

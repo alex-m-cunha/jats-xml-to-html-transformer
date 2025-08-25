@@ -4,7 +4,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 xmlns:xlink="http://www.w3.org/1999/xlink"
 exclude-result-prefixes="xlink">
 
-  <!-- Header masthead -->
+  <!-- Masthead -->
   <xsl:template match="front" mode="masthead">
     <header class="article-header">
       <h1 class="article-title">
@@ -17,7 +17,7 @@ exclude-result-prefixes="xlink">
       </xsl:if>
 
       <!-- Author chips -->
-      <ol class="authors">
+      <ul class="authors">
         <xsl:for-each select="article-meta/contrib-group/contrib[@contrib-type='author']">
           <!-- ids to wire button ↔ panel -->
           <xsl:variable name="aid"     select="generate-id()"/>
@@ -50,7 +50,7 @@ exclude-result-prefixes="xlink">
           <li class="author-chip">
             <!-- The interactive “chip” -->
             <button type="button"
-                    class="chip"
+                    class="chip popover-trigger"
                     aria-haspopup="dialog"
                     aria-expanded="false"
                     aria-controls="{$panelId}">
@@ -63,7 +63,7 @@ exclude-result-prefixes="xlink">
               <!-- Corresponding marker beside the name, if present -->
               <xsl:if test="$has-corresp">
                 <span class="corresp" aria-hidden="true">
-                  <img src="{$assets-path}img/corresponding-author.svg" alt="" width="16" height="16"/>
+                  <img src="{$assets-path}/img/corresponding-author-icon.svg" alt=""/>
                 </span>
               </xsl:if>
             </button>
@@ -72,13 +72,13 @@ exclude-result-prefixes="xlink">
             <xsl:if test="$has-orcid">
               <a class="orcid" href="{$orcid-url}" rel="noopener" target="_blank"
                 aria-label="ORCID: {substring-after($orcid-url,'orcid.org/')}">
-                <img src="{$assets-path}img/orcid.svg" alt="" width="16" height="16"/>
+                <img src="{$assets-path}/img/orcid-icon.svg" alt=""/>
               </a>
             </xsl:if>
 
             <!-- Popover ALWAYS renders -->
             <div id="{$panelId}"
-                class="author-popover"
+                class="popover author-popover"
                 role="dialog"
                 aria-modal="false"
                 aria-labelledby="{$labelId}"
@@ -97,6 +97,7 @@ exclude-result-prefixes="xlink">
                 <div class="popover-section">
                   <div class="section-title">Corresponding Author</div>
                   <xsl:choose>
+                    
                     <!-- Resolve via xref rid(s) → author-notes/corresp -->
                     <xsl:when test="xref[@ref-type='corresp']">
                       <xsl:for-each select="xref[@ref-type='corresp']/@rid">
@@ -127,7 +128,7 @@ exclude-result-prefixes="xlink">
                   <xsl:when test="$has-orcid">
                     <p>
                       <a href="{$orcid-url}" rel="noopener" target="_blank">
-                        <img src="{$assets-path}img/orcid.svg" alt="" width="16" height="16"/>
+                        <img src="{$assets-path}/img/orcid-icon.svg" alt="" width="16" height="16"/>
                         <xsl:text> </xsl:text>
                         <span class="orcid-id">
                           <xsl:value-of select="substring-after($orcid-url,'orcid.org/')"/>
@@ -189,7 +190,7 @@ exclude-result-prefixes="xlink">
             </div>
           </li>
         </xsl:for-each>
-      </ol>
+      </ul>
     
       <!-- Article Publication Date + DOI link -->
       <ul class="pub-date-and-article-type">
@@ -220,74 +221,6 @@ exclude-result-prefixes="xlink">
 
       </ul>
     </header>
-  </xsl:template>
-
-  <!-- Abstract -->
-  <xsl:template match="front" mode="abstract">
-    <xsl:if test="article-meta/abstract">
-      <section class="abstract">
-        <h2>Abstract</h2>
-        <xsl:apply-templates select="article-meta/abstract/node()"/>
-      </section>
-    </xsl:if>
-  </xsl:template>
-
-  <!-- Right Sidebar -->
-  <xsl:template match="article-meta" mode="id-panel">
-    <section class="card">
-      <h3>Identifiers</h3>
-      <ul class="ids">
-        <xsl:if test="article-id[@pub-id-type='doi']">
-          <li><a href="https://doi.org/{normalize-space(article-id[@pub-id-type='doi'])}">DOI</a></li>
-        </xsl:if>
-        <xsl:if test="article-id[@pub-id-type='pmid']">
-          <li><a href="https://pubmed.ncbi.nlm.nih.gov/{normalize-space(article-id[@pub-id-type='pmid'])}/">PubMed</a></li>
-        </xsl:if>
-        <xsl:if test="article-id[@pub-id-type='pmcid']">
-          <li>
-            <xsl:variable name="pmc" select="normalize-space(article-id[@pub-id-type='pmcid'])"/>
-            <xsl:variable name="pmcLink">
-              <xsl:choose>
-                <xsl:when test="starts-with($pmc,'PMC')"><xsl:value-of select="$pmc"/></xsl:when>
-                <xsl:otherwise>PMC<xsl:value-of select="$pmc"/></xsl:otherwise>
-              </xsl:choose>
-            </xsl:variable>
-            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/{$pmcLink}/">PMC</a>
-          </li>
-        </xsl:if>
-        <xsl:if test="article-id[@pub-id-type='publisher-id']">
-          <li>Publisher ID: <xsl:value-of select="normalize-space(article-id[@pub-id-type='publisher-id'])"/></li>
-        </xsl:if>
-      </ul>
-    </section>
-  </xsl:template>
-
-  <!-- Rights/license panel -->
-  <xsl:template match="permissions" mode="rights">
-    <section class="card">
-      <h3>Rights</h3>
-      <xsl:if test="license">
-        <p>
-          <xsl:text>License: </xsl:text>
-          <xsl:choose>
-            <xsl:when test="license/@xlink:href">
-              <a href="{license/@xlink:href}"><xsl:value-of select="normalize-space(license)"/></a>
-            </xsl:when>
-            <xsl:otherwise><xsl:value-of select="normalize-space(license)"/></xsl:otherwise>
-          </xsl:choose>
-        </p>
-      </xsl:if>
-      <xsl:if test="copyright-statement">
-        <p><xsl:value-of select="normalize-space(copyright-statement)"/></p>
-      </xsl:if>
-    </section>
-  </xsl:template>
-
-  <!-- Footer (publisher address) -->
-  <xsl:template match="journal-meta" mode="footer">
-    <div class="publisher">
-      <xsl:apply-templates select="publisher/publisher-loc"/>
-    </div>
   </xsl:template>
 
 </xsl:stylesheet>

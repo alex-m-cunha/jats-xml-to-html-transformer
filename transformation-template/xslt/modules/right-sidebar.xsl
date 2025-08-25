@@ -19,11 +19,6 @@
         <!-- ============== KEYWORDS ============== -->
         <details class="accordion">
             <summary role="heading" aria-level="3">
-                <!-- tag icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                    width="16" height="16" aria-hidden="true">
-                    <path d="M3 12l9 9 9-9-9-9H3v9zM7 8a2 2 0 110 4 2 2 0 010-4z" />
-                </svg>
                 <span>Keywords</span>
             </summary>
             <xsl:variable name="kw"
@@ -49,10 +44,7 @@
         <details class="accordion">
             <summary role="heading" aria-level="3">
                 <!-- quotes icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                    width="16" height="16" aria-hidden="true">
-                    <path d="M7 7h5v5H9v5H4v-6a4 4 0 014-4zm10 0h5v5h-3v5h-5v-6a4 4 0 014-4z" />
-                </svg>
+                <img src="{$assets-path}img/quotes-icon.svg" alt="" aria-hidden="true" class="article-viewer-icons" />
                 <span>Cite</span>
             </summary>
 
@@ -79,10 +71,6 @@
         <details class="accordion">
             <summary role="heading" aria-level="3">
                 <!-- shield icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                    width="16" height="16" aria-hidden="true">
-                    <path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z" />
-                </svg>
                 <span>Competing Interests</span>
             </summary>
             <xsl:variable name="conflicts"
@@ -105,11 +93,6 @@
         <!-- ============== FUNDING SOURCE ============== -->
         <details class="accordion">
             <summary role="heading" aria-level="3">
-                <!-- banknote icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                    width="16" height="16" aria-hidden="true">
-                    <path d="M2 6h20v12H2zM6 9h4v6H6zM16 9h2v6h-2z" />
-                </svg>
                 <span>Funding Source</span>
             </summary>
             <xsl:variable name="awards"
@@ -141,13 +124,6 @@
         <!-- ============== DATA AVAILABILITY ============== -->
         <details class="accordion">
             <summary role="heading" aria-level="3">
-                <!-- database icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                    width="16" height="16" aria-hidden="true">
-                    <ellipse cx="12" cy="5" rx="8" ry="3" />
-                    <path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5" />
-                    <path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" />
-                </svg>
                 <span>Data Availability</span>
             </summary>
             <xsl:variable name="data"
@@ -170,11 +146,6 @@
         <!-- ============== ACKNOWLEDGEMENTS ============== -->
         <details class="accordion">
             <summary role="heading" aria-level="3">
-                <!-- handshake icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                    width="16" height="16" aria-hidden="true">
-                    <path d="M2 12l4-4 6 6 6-6 4 4-10 10L2 12z" />
-                </svg>
                 <span>Acknowledgements</span>
             </summary>
             <xsl:choose>
@@ -190,11 +161,6 @@
         <!-- ============== COPYRIGHT & LICENSE (static) ============== -->
         <details class="accordion">
             <summary role="heading" aria-level="3">
-                <!-- copyright icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                    width="16" height="16" aria-hidden="true">
-                    <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 5a5 5 0 110 10 5 5 0 010-10z" />
-                </svg>
                 <span>Copyright &amp; License</span>
             </summary>
 
@@ -205,10 +171,10 @@
                     CC BY-NC 4.0
                 </a> except where otherwise stated. </p>
 
-            <p class="cc-badge">
-                <img src="{$assets-path}img/cc-by-nc-4.0.svg"
-                    alt="Creative Commons BY-NC 4.0" width="88" height="31" />
+            <p class="cc-by-nc-icon">
+                <img src="{$assets-path}img/cc-by-nc-4.0.svg" alt="Creative Commons BY-NC 4.0" />
             </p>
+            
         </details>
     </xsl:template>
 </xsl:stylesheet>

@@ -18,16 +18,20 @@
     <xsl:variable name="href" select="normalize-space(@xlink:href)"/>
     <xsl:choose>
       <xsl:when test="$href">
-        <a href="{$href}" rel="noopener">
+        <a href="{$href}" target="_blank" rel="noopener">
           <xsl:choose>
             <xsl:when test="normalize-space(.)">
               <xsl:apply-templates/>
             </xsl:when>
-            <xsl:otherwise><xsl:value-of select="$href"/></xsl:otherwise>
+            <xsl:otherwise>
+              <xsl:value-of select="$href"/>
+            </xsl:otherwise>
           </xsl:choose>
         </a>
       </xsl:when>
-      <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+      <xsl:otherwise>
+        <xsl:apply-templates/>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
@@ -38,30 +42,67 @@
     </a>
   </xsl:template>
 
-  <!-- XREF: bibliography -->
+  <!-- Inline bibliography citation → trigger-only (no brackets, renders as (N)) -->
   <xsl:template match="xref[@ref-type='bibr']">
     <xsl:variable name="rid" select="@rid"/>
-    <xsl:variable name="num">
+    
+    <!-- Label: use provided text if present; otherwise compute numeric index from ref-list -->
+    <xsl:variable name="label">
       <xsl:choose>
-        <xsl:when test="normalize-space(.)!=''"><xsl:value-of select="normalize-space(.)"/></xsl:when>
-        <xsl:otherwise><xsl:call-template name="ref-number"><xsl:with-param name="rid" select="$rid"/></xsl:call-template></xsl:otherwise>
+        <xsl:when test="normalize-space(.)">
+          <xsl:value-of select="normalize-space(.)"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="count(/article/back/ref-list/ref[@id=$rid]/preceding-sibling::ref) + 1"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <a class="cite" role="doc-biblioref" href="#{$rid}" aria-label="Reference {$num}">[<xsl:value-of select="$num"/>]</a>
+    
+    <!-- Display as: (N) where N is a button that controls a popover -->
+    <span class="citation">
+      <button
+        type="button"
+        class="popover-trigger citation-trigger"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="ref-pop-{$rid}">
+        <xsl:value-of select="$label"/>
+      </button>
+    </span>
   </xsl:template>
 
-  <!-- XREF: footnote (global or table) -->
+  <!-- Inline footnote trigger → renders as (N), not superscript -->
   <xsl:template match="xref[@ref-type='fn']">
-    <xsl:variable name="rid" select="@rid"/>
-    <xsl:variable name="num">
+    <!-- Target id from the xref -->
+    <xsl:variable name="rid" select="normalize-space(@rid)"/>
+    
+    <!-- Find the actual fn node (global or table footnote) -->
+    <xsl:variable name="fn"
+      select="(/article/back/fn-group//fn[@id=$rid]
+      | //table-wrap//table-wrap-foot//fn[@id=$rid])[1]"/>
+    
+    <!-- Compute the ordinal N safely -->
+    <xsl:variable name="n">
       <xsl:choose>
-        <xsl:when test="normalize-space(.)!=''"><xsl:value-of select="normalize-space(.)"/></xsl:when>
-        <xsl:otherwise><xsl:call-template name="fn-number"><xsl:with-param name="rid" select="$rid"/></xsl:call-template></xsl:otherwise>
+        <xsl:when test="$fn"><xsl:value-of select="count($fn/preceding-sibling::fn) + 1"/></xsl:when>
+        <xsl:otherwise>?</xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <sup class="fn-ref">
-      <a href="#{$rid}" data-fn-popup="{$rid}" role="doc-noteref"><xsl:value-of select="$num"/></a>
-    </sup>
+    
+    <!-- Tight parentheses; button is the only focusable element -->
+    <span class="footnote">
+      <button
+        type="button"
+        class="popover-trigger fn-trigger"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="{concat('fn-pop-',$rid)}"
+        aria-label="Footnote {$n}"
+        data-popover-kind="fn"
+        data-popover-rid="{$rid}">
+        <xsl:value-of select="$n"/>
+      </button>
+    </span>
   </xsl:template>
 
   <!-- XREF: sections/figures/tables (plain anchors) -->
@@ -69,19 +110,4 @@
     <a href="#{@rid}"><xsl:apply-templates/></a>
   </xsl:template>
 
-  <!-- Debug fallback for unknown inline tags -->
-  <xsl:template match="*">
-    <xsl:choose>
-      <xsl:when test="$debug='yes'">
-        <span class="u-unknown-inline">
-          <xsl:text>&lt;</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
-          <xsl:apply-templates/>
-          <xsl:text>&lt;/</xsl:text><xsl:value-of select="name()"/><xsl:text>&gt;</xsl:text>
-        </span>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:apply-templates/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
 </xsl:stylesheet>

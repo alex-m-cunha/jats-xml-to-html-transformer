@@ -1,0 +1,15 @@
+@media screen and (min-width: 992px) {
+
+    .figure {
+        margin: unset;
+    }
+
+    .figure-media img {
+        width: 512px;
+        aspect-ratio: 4 / 3;   /* or 16 / 9, 1 / 1, etc. */
+        object-fit: contain;
+    }
+}
+
+
+
