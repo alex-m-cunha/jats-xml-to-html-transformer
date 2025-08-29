@@ -1,0 +1,10 @@
+@media screen and (min-width: 1200px) {
+
+    .header-wrap {
+        display: flex;
+        flex-direction: row;
+        justify
+        padding: 2.5rem 1.25rem 1.25rem 1.25rem;
+        border: 1px solid #D5D5D4;
+    }
+}

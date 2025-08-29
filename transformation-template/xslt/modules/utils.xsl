@@ -56,4 +56,13 @@ exclude-result-prefixes="xlink">
     <xsl:value-of select="concat($article-img-root, $href)"/>
   </xsl:template>
   
+  <xsl:template name="pad-volume">
+    <xsl:param name="vol"/>
+    <xsl:choose>
+      <xsl:when test="string-length($vol) = 1">00<xsl:value-of select="$vol"/></xsl:when>
+      <xsl:when test="string-length($vol) = 2">0<xsl:value-of select="$vol"/></xsl:when>
+      <xsl:otherwise><xsl:value-of select="$vol"/></xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
 </xsl:stylesheet>

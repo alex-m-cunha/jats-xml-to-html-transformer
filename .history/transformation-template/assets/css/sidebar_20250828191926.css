@@ -1,0 +1,76 @@
+.download-button {
+    display: flex;
+    justify-content: center;
+    border: 1px solid #D5D5D4;
+}    
+
+.download-button .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    text-decoration: none;
+    padding: 0.65rem 0.75rem;
+    width: 100%;
+    height: 100%
+}
+
+.download-button .btn img {
+    flex-shrink: 0;
+}
+
+.download-button.pdf-unavailable {
+    color:#b0b0b0;
+    border: 1px solid #D5D5D4;
+    background-color: #fafafa;
+}
+
+.download-button.pdf-unavailable .btn {
+    cursor: not-allowed;
+}
+
+.download-button.pdf-unavailable .btn img {
+    display: none;
+}
+
+.download-button.pdf-available {
+    border: 1px solid #EFB408;
+}
+
+.right-sidebar {
+    list-style: none;
+}
+
+.right-sidebar .accordion {
+    list-style: none;
+}
+
+.kw-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.right-sidebar .accordion::marker {
+    content: none;
+    display: none;
+}
+
+.kw-list li::marker {
+    content: none;
+    display: none;
+}
+
+.right-sidebar details {
+    list-style: none;
+}
+
+.right-sidebar details summary {
+    list-style: none;
+}
+
+.right-sidebar details summary::marker {
+    content: none;
+    display: none;
+}

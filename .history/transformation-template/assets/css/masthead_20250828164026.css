@@ -1,0 +1,33 @@
+.authors {
+    list-style: none;
+    display: inline-flex;
+    flex-direction: row;
+    gap: 0.5rem;
+
+}
+
+.authors li button {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.authors li {
+    display: inline-flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    border: 1px solid #D5D5D4;
+    border-radius: 12px;
+    padding: 0.10rem 1rem;
+    align-items: center;
+}
+
+.pub-date-and-article-type {
+    list-style: none;
+    display: inline-flex;
+    flex-direction: row;
+    padding: 0.5rem 1.25rem;
+    border: 1px solid #D5D5D4;
+    width: 100%;
+}

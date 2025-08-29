@@ -1,0 +1,39 @@
+.main-container {
+    grid-template-areas:
+        "main-content"
+        "sidebar";
+    grid-template-columns: auto auto;
+}
+
+.article-header-tabs-container {
+    display: grid;
+    grid-template-areas:
+        "header"
+        "tabs";
+    grid-template-rows: auto auto;
+    grid-template-columns: auto;
+    gap: 1rem;
+}
+
+.panels {
+        grid-template-columns: auto;
+}
+
+
+.main-content-wrapper {
+    grid-area: main-content;
+}
+
+.right-sidebar {
+    grid-area: sidebar;
+}
+
+.article-header {
+  grid-area: header;
+}
+
+.tabs {
+  grid-area: tabs;
+}
+
+

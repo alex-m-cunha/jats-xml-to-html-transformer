@@ -57,7 +57,12 @@
         <link rel="stylesheet" href="{$assets-path}css/base.css" />
         <link rel="stylesheet" href="{$assets-path}css/layout.css" />
         <link rel="stylesheet" href="{$assets-path}css/popovers.css" />
-        <link rel="stylesheet" href="{$assets-path}css/assets.css" />
+        <link rel="stylesheet" href="{$assets-path}css/publisher-header.css" />
+        <link rel="stylesheet" href="{$assets-path}css/masthead.css" />
+        <link rel="stylesheet" href="{$assets-path}css/sidebar.css" />
+        <link rel="stylesheet" href="{$assets-path}css/toc.css" />
+        <link rel="stylesheet" href="{$assets-path}css/footer.css" />
+        <link rel="stylesheet" href="{$assets-path}css/fonts.css" />
       </head>
 
       <body>
@@ -66,89 +71,103 @@
         <!-- Header -->
         <xsl:apply-templates select="/article/front/journal-meta" mode="publisher-header"/>
 
-        <!-- Main Container as CSS Grid -->
         <section class="main-container">
-
-          <!-- Masthead/Header -->
-          <xsl:apply-templates select="/article/front" mode="masthead" />
-
+          
           <!-- ===================== Tabs: Full Article vs Figures & Tables ===================== -->
           <xsl:variable name="has-figures-tables"
             select="boolean(/article//fig or /article//table-wrap)"/>
-          
-          <!-- Tablist -->
-          <nav class="tabs content-tabs" role="tablist" aria-label="Content views">
-            
-            <!-- Full Article tab -->
-            <button id="tab-full-article"
-              class="tab is-active"
-              role="tab"
-              aria-selected="true"
-              aria-controls="panel-article"
-              tabindex="0">
-              Full Article
-            </button>
-            
-            <!-- Figures & Tables tab (conditional) -->
-            <xsl:if test="$has-figures-tables">
-              <button id="tab-figures-tables"
-                class="tab"
-                role="tab"
-                aria-selected="false"
-                aria-controls="panel-figures-tables"
-                tabindex="-1">
-                Figures &amp; Tables
-              </button>
-            </xsl:if>
-          </nav>
-          
-          <!-- ===================== Panels (each panel contains its own TOC + content) ===================== -->
-          <div class="panels">
-            
-            <section id="panel-full-article"
-              class="panel is-active"
-              role="tabpanel"
-              aria-labelledby="tab-article">
+
+          <!-- Main Container as CSS Grid -->
+          <div class="main-content-wrapper">
+
+            <div class="article-header-tabs-container">
               
-              <div class="panel-grid">
-                
-                <!-- Left: TOC for Full Article -->
-                <aside class="toc-wrap" aria-label="Full Article Table of Contents">
-                  <xsl:apply-templates select="/article/body" mode="toc-full-article"/>
-                </aside>
-                
-                <!-- Right: Full Article content -->
-                <main id="main-full-article" class="panel-content" role="region" aria-labelledby="tab-article">
-                  <xsl:apply-templates select="/article/body" mode="full-article"/>
-                </main>
-              </div>
-            </section>
+              <!-- Masthead/Header -->
+              <xsl:apply-templates select="/article/front" mode="masthead" />
+              
+              <!-- Tablist -->
+              <nav class="tabs content-tabs" role="tablist" aria-label="Content views">
+                <div class="content-tabs-wrapper">
+                  <!-- Full Article tab -->
+                  <button id="tab-full-article"
+                    class="tab is-active"
+                    role="tab"
+                    aria-selected="true"
+                    aria-controls="panel-article"
+                    tabindex="0">
+                    Full Article
+                  </button>
+                  
+                  <!-- Figures & Tables tab (conditional) -->
+                  <xsl:if test="$has-figures-tables">
+                    <button id="tab-figures-tables"
+                      class="tab"
+                      role="tab"
+                      aria-selected="false"
+                      aria-controls="panel-figures-tables"
+                      tabindex="-1">
+                      Figures &amp; Tables
+                    </button>
+                  </xsl:if>
+                </div>
+              </nav>
+              
+            </div>
             
-            <!-- ===== Panel: Figures & Tables (conditional) ===== -->
-            <xsl:if test="$has-figures-tables">
-              <section id="panel-figures-tables"
-                class="panel"
+            <!-- ===================== Panels (each panel contains its own TOC + content) ===================== -->
+            <div class="panels">
+              
+              <section id="panel-full-article"
+                class="panel is-active"
                 role="tabpanel"
-                aria-labelledby="tab-figures-tables"
-                hidden="hidden">
+                aria-labelledby="tab-article">
                 
                 <div class="panel-grid">
                   
-                  <!-- Left: TOC for Figures & Tables (your H2-only version) -->
-                  <aside class="toc-wrap" aria-label="Figures and Tables Table of Contents">
-                    <xsl:apply-templates select="/article" mode="toc-figures-tables"/>
+                  <!-- Left: TOC for Full Article -->
+                  <aside class="toc-wrap" aria-label="Full Article Table of Contents">
+                    <xsl:apply-templates select="/article/body" mode="toc-full-article"/>
                   </aside>
                   
-                  <!-- Right: Figures & Tables combined view -->
-                  <main id="main-figures-tables" class="panel-content" role="region" aria-labelledby="tab-figures-tables">
-                    <xsl:apply-templates select="/article" mode="figures-tables"/>
+                  <!-- Right: Full Article content -->
+                  <main id="main-full-article" class="panel-content" role="region" aria-labelledby="tab-article">
+                    <xsl:apply-templates select="/article/body" mode="full-article"/>
                   </main>
                 </div>
               </section>
-            </xsl:if>
+              
+              <!-- ===== Panel: Figures & Tables (conditional) ===== -->
+              <xsl:if test="$has-figures-tables">
+                <section id="panel-figures-tables"
+                  class="panel"
+                  role="tabpanel"
+                  aria-labelledby="tab-figures-tables"
+                  hidden="hidden">
+                  
+                  <div class="panel-grid">
+                    
+                    <!-- Left: TOC for Figures & Tables (your H2-only version) -->
+                    <aside class="toc-wrap" aria-label="Figures and Tables Table of Contents">
+                      <xsl:apply-templates select="/article" mode="toc-figures-tables"/>
+                    </aside>
+                    
+                    <!-- Right: Figures & Tables combined view -->
+                    <main id="main-figures-tables" class="panel-content" role="region" aria-labelledby="tab-figures-tables">
+                      <xsl:apply-templates select="/article" mode="figures-tables"/>
+                    </main>
+                  </div>
+                </section>
+              </xsl:if>
+              
+            </div>
             
           </div>
-            
+          
+          <!-- Right Sidebar -->
+          <aside class="right-sidebar" aria-label="Actions and metadata">
+            <xsl:call-template name="right-sidebar"/>
+          </aside>
+          
           <!-- ===== Optional noscript fallback: show both panels if JS is disabled ===== -->
           <noscript>
             <style>
@@ -157,12 +176,7 @@
               .panel[hidden] { display:block !important }
             </style>
           </noscript>
-   
-          <!-- Right Sidebar -->
-          <aside class="right-sidebar" aria-label="Actions and metadata">
-            <xsl:call-template name="right-sidebar"/>
-          </aside>
-
+          
         </section>
         
         <!-- Hidden popover content for citations and footnotes -->

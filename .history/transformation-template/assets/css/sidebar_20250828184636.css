@@ -1,0 +1,15 @@
+.download-button {
+    border: 1px solid #D5D5D4;
+    margin
+}    
+
+.download-button .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.download-button .btn img {
+    flex-shrink: 0;
+}

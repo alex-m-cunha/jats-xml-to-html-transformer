@@ -1,0 +1,10 @@
+.download-button .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.download-button .btn img {
+    flex-shrink: 0;
+}

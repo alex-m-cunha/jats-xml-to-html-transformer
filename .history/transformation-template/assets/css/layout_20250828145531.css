@@ -1,0 +1,8 @@
+/* shell */
+.main-container{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: var(--gutter);
+  padding: var(--gutter);
+}
+

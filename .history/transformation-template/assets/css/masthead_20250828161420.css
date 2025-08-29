@@ -1,0 +1,12 @@
+.article-header {
+
+}
+
+.authors {
+    list-style: ;
+}
+
+.authors li {
+    display: inline-flex;
+    gap: ;
+}

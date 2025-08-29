@@ -1,0 +1,21 @@
+footer {
+    padding: 1.875rem 1.25rem;
+    display: flex;
+    justify-content: center;
+    background-color: #43423E;
+}
+
+.footer-wrap {
+    max-width: 72.5rem;
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-top {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}

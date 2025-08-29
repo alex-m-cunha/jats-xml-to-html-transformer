@@ -1,0 +1,13 @@
+.toc ul li {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.875rem;
+    text-decoration: none;
+    border-left: 1px solid #D5D5D4;
+}
+
+.toc ul li a {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.875rem;
+    text-decoration: none;
+    border-left: 1px solid #D5D5D4;
+}

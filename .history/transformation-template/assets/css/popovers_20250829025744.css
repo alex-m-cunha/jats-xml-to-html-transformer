@@ -1,0 +1,75 @@
+@media screen and (min-width: 992px) {
+
+    [hidden],
+    .popovers[hidden] {
+    display: none !important;
+    }
+
+    /* Centered modal-style popovers */
+    .popover {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+
+    max-width: 640px;
+    width: 90%;
+    max-height: 80vh;
+    overflow: auto;
+
+    background: #fff;
+    border: 1px solid #d0d0d0;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    padding: 1rem;
+    }
+
+    .figure-media {
+        width: 512px;
+    }
+
+    .popover-header {
+    display: flex;
+    justify-content: space-between;  /* title left, button right */
+    align-items: center;             /* vertical centering */
+    }
+
+    .popover-header strong {
+    flex: 1;                         /* title takes remaining space */
+    }
+
+    .popover-close {
+    margin-left: auto;               /* push button to the far right */
+    background: none;
+    border: none;
+    font-size: 1.25rem;              /* bigger × symbol */
+    cursor: pointer;
+    line-height: 1;
+    }
+
+    /* Page-level backdrop (not scoped to .popovers wrapper) */
+    body.has-popover-open::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    z-index: 999;            /* just under .popover */
+    }
+}
+
+
+.popover-header {
+
+}
+
+.popover-section .section-title {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.25rem;
+    color: #767674;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    margin: 0.5rem 0 0 0
+}
+
+.se

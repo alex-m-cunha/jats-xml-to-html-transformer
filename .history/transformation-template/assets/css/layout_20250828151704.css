@@ -1,0 +1,16 @@
+.article-header-tabs-container {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "tabs";
+  grid-template-rows: auto auto;
+  gap: 1rem;
+}
+
+.article-header {
+  grid-area: header;
+}
+
+.tabs {
+  grid-area: tabs;
+}

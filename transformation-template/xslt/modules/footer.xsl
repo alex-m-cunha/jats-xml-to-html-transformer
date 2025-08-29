@@ -24,7 +24,7 @@ exclude-result-prefixes="xlink">
                         <!-- Journal Logo -->
                         <div class="journal-brand">
 
-                            <img src="{$assets-path}img/journal-logo.svg" alt="{$journal-name}" aria-hidden="true" class="journal-logo" />
+                            <img src="{$assets-path}img/journal-logo-white.svg" alt="{$journal-name}" aria-hidden="true" class="journal-logo" />
                             
                             <!-- Optional subtitle / society line (static placeholder for now) -->
                             <div class="journal-text">
@@ -57,7 +57,7 @@ exclude-result-prefixes="xlink">
 
                         <!-- Publisher block -->
                         <div class="publisher-block">
-                            <img src="{$assets-path}img/publisher-logo.svg" alt="Stanford University Press" class="publisher-logo" />
+                            <img src="{$assets-path}img/publisher-logo-white.svg" alt="Stanford University Press" class="publisher-logo" />
                             <address class="publisher-address">485 Broadway, First Floor, Redwood City, CA 94063-3136, USA.</address>
                         </div>
                     </div>
@@ -74,7 +74,7 @@ exclude-result-prefixes="xlink">
                 <!-- =================== BOTTOM ROW =================== -->
                 <div class="footer-bottom">
                     <!-- License text -->
-                    <img src="{$assets-path}img/cc-by-nc-4.0.svg" alt="Creative Commons BY-NC 4.0" />
+                    <img src="{$assets-path}img/cc-by-nc-4.0-white.svg" alt="Creative Commons BY-NC 4.0" />
                     <span class="license-line">
                         Content on this website is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License
                         <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">

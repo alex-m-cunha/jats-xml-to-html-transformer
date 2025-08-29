@@ -1,0 +1,8 @@
+@media screen and (min-width: 1200px) {
+
+    .header-wrap {
+        display: flex;
+        flex-direction: row;
+        background-color: red;
+    }
+}
