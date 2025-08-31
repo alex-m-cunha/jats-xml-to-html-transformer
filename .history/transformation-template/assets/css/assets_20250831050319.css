@@ -1,0 +1,17 @@
+    .figure {
+        box-sizing: border-box;
+        margin: unset;
+        background: #fff;
+        border: 1px solid #d0d0d0;
+        padding: 1.25rem;
+        max-width: 552px;
+        width: 100%;
+
+    }
+
+    .figure-media img {
+        width: 100%;
+        aspect-ratio: 16 / 9; 
+        object-fit: contain;
+        border: 1px solid #d0d0d0;
+    }

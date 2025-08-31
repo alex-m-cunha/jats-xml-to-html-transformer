@@ -59,6 +59,7 @@ exclude-result-prefixes="xlink">
         <!-- Author chips -->
         <ul class="authors">
           <xsl:for-each select="article-meta/contrib-group/contrib[@contrib-type='author']">
+            
             <!-- ids to wire button ↔ panel -->
             <xsl:variable name="aid"     select="generate-id()"/>
             <xsl:variable name="panelId" select="concat('author-pop-', $aid)"/>
@@ -116,118 +117,6 @@ exclude-result-prefixes="xlink">
                 </a>
               </xsl:if>
   
-              <!-- Popover ALWAYS renders -->
-              <div id="{$panelId}"
-                  class="popover author-popover"
-                  role="dialog"
-                  aria-modal="false"
-                  aria-labelledby="{$labelId}"
-                  hidden="hidden">
-                <div class="popover-header">
-                  <strong>
-                    <xsl:value-of select="normalize-space(name/given-names)"/>
-                    <xsl:text> </xsl:text>
-                    <xsl:value-of select="normalize-space(name/surname)"/>
-                  </strong>
-                  <button type="button" class="popover-close" aria-label="Close">×</button>
-                </div>
-  
-                <!-- Corresponding Author -->
-                <xsl:if test="$has-corresp">
-                  <div class="popover-section">
-                    <div class="section-title">Corresponding Author</div>
-                    <xsl:choose>
-                      
-                      <!-- Resolve via xref rid(s) → author-notes/corresp -->
-                      <xsl:when test="xref[@ref-type='corresp']">
-                        <xsl:for-each select="xref[@ref-type='corresp']/@rid">
-                          <xsl:variable name="c" select="key('correspById', .)[1]"/>
-                          <p>
-                            <xsl:choose>
-                              <xsl:when test="$c"><xsl:apply-templates select="$c/node()"/></xsl:when>
-                              <xsl:otherwise><span class="u-missing">[Correspondence not found: <xsl:value-of select="."/>]</span></xsl:otherwise>
-                            </xsl:choose>
-                          </p>
-                        </xsl:for-each>
-                      </xsl:when>
-  
-                      <!-- Fallback: any corresp block in author-notes -->
-                      <xsl:when test="../../author-notes/corresp">
-                        <xsl:for-each select="../../author-notes/corresp">
-                          <p><xsl:apply-templates/></p>
-                        </xsl:for-each>
-                      </xsl:when>
-                    </xsl:choose>
-                  </div>
-                </xsl:if>
-  
-                <!-- ORCID -->
-                <div class="popover-section">
-                  <div class="section-title">ORCID</div>
-                  <xsl:choose>
-                    <xsl:when test="$has-orcid">
-                      <p>
-                        <a href="{$orcid-url}" rel="noopener" target="_blank">
-                          <img src="{$assets-path}/img/orcid-icon.svg" alt="" width="16" height="16"/>
-                          <xsl:text> </xsl:text>
-                          <span class="orcid-id">
-                            <xsl:value-of select="substring-after($orcid-url,'orcid.org/')"/>
-                          </span>
-                        </a>
-                      </p>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <p>No ORCID provided.</p>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </div>
-  
-                <!-- Affiliations -->
-                <div class="popover-section">
-                  <div class="section-title">Affiliations</div>
-                  <xsl:choose>
-                    <xsl:when test="$has-aff">
-                      <ul class="aff-list">
-                        <xsl:for-each select="xref[@ref-type='aff']/@rid">
-                          <li>
-                            <xsl:variable name="aff" select="key('affById', .)[1]"/>
-                            <xsl:choose>
-                              <xsl:when test="$aff"><xsl:apply-templates select="$aff/node()"/></xsl:when>
-                              <xsl:otherwise><span class="u-missing">[Affiliation not found: <xsl:value-of select="."/>]</span></xsl:otherwise>
-                            </xsl:choose>
-                          </li>
-                        </xsl:for-each>
-                      </ul>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <p>None declared.</p>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </div>
-  
-                <!-- Competing Interests -->
-                <div class="popover-section">
-                  <div class="section-title">Competing Interests</div>
-                  <xsl:choose>
-                    <xsl:when test="$has-comp">
-                      <xsl:choose>
-                        <xsl:when test="notes">
-                          <xsl:apply-templates select="notes/node()"/>
-                        </xsl:when>
-                        <xsl:when test="../../author-notes//fn[@fn-type='conflict']">
-                          <xsl:for-each select="../../author-notes//fn[@fn-type='conflict']">
-                            <p><xsl:apply-templates/></p>
-                          </xsl:for-each>
-                        </xsl:when>
-                      </xsl:choose>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <p>None declared.</p>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </div>
-  
-              </div>
             </li>
           </xsl:for-each>
         </ul>

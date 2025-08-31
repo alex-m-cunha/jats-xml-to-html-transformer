@@ -63,6 +63,7 @@
         <link rel="stylesheet" href="{$assets-path}css/toc.css" />
         <link rel="stylesheet" href="{$assets-path}css/footer.css" />
         <link rel="stylesheet" href="{$assets-path}css/fonts.css" />
+        <link rel="stylesheet" href="{$assets-path}css/assets.css" />
       </head>
 
       <body>
@@ -93,7 +94,7 @@
                     class="tab is-active"
                     role="tab"
                     aria-selected="true"
-                    aria-controls="panel-article"
+                    aria-controls="panel-full-article"
                     tabindex="0">
                     Full Article
                   </button>
@@ -120,7 +121,7 @@
               <section id="panel-full-article"
                 class="panel is-active"
                 role="tabpanel"
-                aria-labelledby="tab-article">
+                aria-labelledby="tab-full-article">
                 
                 <div class="panel-grid">
                   
@@ -182,14 +183,15 @@
         <!-- Hidden popover content for citations and footnotes -->
         <xsl:apply-templates select="/article/back/ref-list" mode="popovers"/>
         <xsl:apply-templates select="/article/back/fn-group" mode="popovers"/>
+        <xsl:apply-templates select="/article" mode="author-popovers"/>
 
         <!-- Footer -->
         <xsl:apply-templates select="/article/front/journal-meta" mode="footer"/>
 
         <!-- JS (progressive enhancement) -->
         <script src="{$assets-path}js/popovers.js"></script>
+        <script src="{$assets-path}js/tab-switching-functionality.js" defer="defer"></script>
         <script src="{$assets-path}js/toc.js" defer="defer"></script>
-        <script src="{$assets-path}js/copydoi.js" defer="defer"></script>
       </body>
     </html>
   </xsl:template>

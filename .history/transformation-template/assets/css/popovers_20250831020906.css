@@ -1,0 +1,108 @@
+[hidden],
+.popovers[hidden] {
+    display: none !important;
+}
+
+/* Centered modal-style popovers */
+.popover {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    max-width: 40vw;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid #cacaca;
+    border-radius: 6px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    padding: 1.25rem;
+}
+
+.popover-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-family: 'Tiempos Headline', serif;
+    font-weight: 300;
+}
+
+.author-popover {
+    min-width: 18.75rem;
+    font-size: 1.35rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+
+.ref-popover .popover-header {
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.figure-media {
+    width: 512px;
+}
+
+
+.popover-header strong {
+    flex: 1;
+    line-height: 1;                 
+}
+
+.popover-close {
+    margin-left: auto;               /* push button to the far right */
+    background: none;
+    font-size: 1.25rem;              /* bigger × symbol */
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* Page-level backdrop (not scoped to .popovers wrapper) */
+body.has-popover-open::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    z-index: 999;            /* just under .popover */
+}
+
+
+.popover-section .section-title {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.25rem;
+    color: #767674;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    margin: 0.75rem 0 0 0
+}
+
+
+
+.popover-section p a {
+    display: inline-flex;
+    gap: 0.5rem;
+}
+
+.popover-close {
+    padding: 0.25rem 0.65rem 0.5rem 0.65rem;
+    border: 1px solid #D5D5D4;
+    border-radius: 6px;
+}
+
+.popover-close:hover {
+    background-color: #fafafa;
+    border: 1px solid #d5d5d5;
+    color: #43423E;
+}
+
+.popover-close:active {
+    background-color: #e7e7e7;
+}
+
+.popover-section p {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}

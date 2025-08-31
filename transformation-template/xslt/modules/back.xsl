@@ -26,13 +26,13 @@
           select="(mixed-citation|element-citation)/node()[not(self::uri or self::ext-link or self::pub-id)]"/>
       </span>
       <xsl:text> </xsl:text>
-      <xsl:call-template name="ref-link-badges-list"/>
+      <xsl:call-template name="ref-link-badges"/>
     </li>
   </xsl:template>
   
   <!-- Link badges for the list view (opens new tab, 3 spaces as separators) -->
-  <xsl:template name="ref-link-badges-list">
-    <xsl:variable name="root" select="(mixed-citation|element-citation)[1]"/>
+  <xsl:template name="ref-link-badges">
+    <xsl:variable name="root"  select="(mixed-citation|element-citation)[1]"/>
     <xsl:variable name="links" select="$root//uri | $root//ext-link"/>
     
     <!-- DOI -->
@@ -78,11 +78,11 @@
       </xsl:choose>
     </xsl:variable>
     
-    <!-- ResearchGate / Google Scholar (direct URLs only) -->
-    <xsl:variable name="rg-url" select="$links[contains(@xlink:href,'researchgate.net')][1]/@xlink:href"/>
+    <!-- ResearchGate / Scholar -->
+    <xsl:variable name="rg-url"      select="$links[contains(@xlink:href,'researchgate.net')][1]/@xlink:href"/>
     <xsl:variable name="scholar-url" select="$links[contains(@xlink:href,'scholar.google')][1]/@xlink:href"/>
     
-    <!-- Generic URLs (show full URL) -->
+    <!-- Generic full URLs -->
     <xsl:variable name="generic-urls"
       select="$links[not(contains(@xlink:href,'doi.org') or
       contains(@xlink:href,'pubmed.ncbi.nlm.nih.gov') or contains(@xlink:href,'ncbi.nlm.nih.gov/pubmed') or
@@ -90,37 +90,26 @@
       contains(@xlink:href,'researchgate.net') or
       contains(@xlink:href,'scholar.google'))]/@xlink:href"/>
     
-    <xsl:variable name="has-any"
-      select="string-length(normalize-space($doi-url))&gt;0 or
-      string-length(normalize-space($pmid-url))&gt;0 or
-      string-length(normalize-space($pmc-url))&gt;0 or
-      string-length(normalize-space($rg-url))&gt;0 or
-      string-length(normalize-space($scholar-url))&gt;0 or
-      count($generic-urls)&gt;0"/>
-    
-    <xsl:if test="$has-any">
-      <span class="ref-links">
-        <xsl:if test="string-length(normalize-space($doi-url))&gt;0">
-          <a href="{$doi-url}" target="_blank" rel="noopener">DOI</a><xsl:text>   </xsl:text>
-        </xsl:if>
-        <xsl:if test="string-length(normalize-space($pmid-url))&gt;0">
-          <a href="{$pmid-url}" target="_blank" rel="noopener">PubMed</a><xsl:text>   </xsl:text>
-        </xsl:if>
-        <xsl:if test="string-length(normalize-space($pmc-url))&gt;0">
-          <a href="{$pmc-url}" target="_blank" rel="noopener">PMC</a><xsl:text>   </xsl:text>
-        </xsl:if>
-        <xsl:if test="string-length(normalize-space($rg-url))&gt;0">
-          <a href="{$rg-url}" target="_blank" rel="noopener">ResearchGate</a><xsl:text>   </xsl:text>
-        </xsl:if>
-        <xsl:if test="string-length(normalize-space($scholar-url))&gt;0">
-          <a href="{$scholar-url}" target="_blank" rel="noopener">Google Scholar</a><xsl:text>   </xsl:text>
-        </xsl:if>
-        <xsl:for-each select="$generic-urls">
-          <a href="{.}" target="_blank" rel="noopener"><xsl:value-of select="."/></a>
-          <xsl:if test="position()!=last()"><xsl:text>   </xsl:text></xsl:if>
-        </xsl:for-each>
-      </span>
+    <!-- Emit links inline, separated by 3 spaces -->
+    <xsl:if test="normalize-space($doi-url)!=''">
+      <a href="{$doi-url}" target="_blank" rel="noopener">DOI</a><xsl:text>   </xsl:text>
     </xsl:if>
+    <xsl:if test="normalize-space($pmid-url)!=''">
+      <a href="{$pmid-url}" target="_blank" rel="noopener">PubMed</a><xsl:text>   </xsl:text>
+    </xsl:if>
+    <xsl:if test="normalize-space($pmc-url)!=''">
+      <a href="{$pmc-url}" target="_blank" rel="noopener">PMC</a><xsl:text>   </xsl:text>
+    </xsl:if>
+    <xsl:if test="normalize-space($rg-url)!=''">
+      <a href="{$rg-url}" target="_blank" rel="noopener">ResearchGate</a><xsl:text>   </xsl:text>
+    </xsl:if>
+    <xsl:if test="normalize-space($scholar-url)!=''">
+      <a href="{$scholar-url}" target="_blank" rel="noopener">Google Scholar</a><xsl:text>   </xsl:text>
+    </xsl:if>
+    <xsl:for-each select="$generic-urls">
+      <a href="{.}" target="_blank" rel="noopener"><xsl:value-of select="."/></a>
+      <xsl:if test="position()!=last()"><xsl:text>   </xsl:text></xsl:if>
+    </xsl:for-each>
   </xsl:template>
   
   <!-- =======================
@@ -165,19 +154,14 @@
               <xsl:apply-templates
                 select="(mixed-citation|element-citation)/node()[not(self::uri or self::ext-link or self::pub-id)]"/>
             </div>
-            <xsl:call-template name="ref-link-badges-popover"/>
+            <xsl:call-template name="ref-link-badges"/>
             <p class="visually-hidden">Press Escape to close this dialog.</p>
           </div>
         </div>
       </xsl:for-each>
     </div>
   </xsl:template>
-  
-  <!-- Simpler badges for popover (identical behaviour as list; opens new tab) -->
-  <xsl:template name="ref-link-badges-popover">
-    <!-- reuse same logic as list version, keeping it separate for styling -->
-    <xsl:call-template name="ref-link-badges-list"/>
-  </xsl:template>
+
   
   <!-- ============ FOOTNOTE POPOVERS (hidden) ============ -->
   <!-- Emits a single hidden wrapper with one dialog per <fn> -->
@@ -206,4 +190,144 @@
     </div>
   </xsl:template>
   
+  <!-- Keys you already use elsewhere (make sure these exist once globally) -->
+  <!--
+<xsl:key name="correspById" match="/article/front/article-meta/author-notes/corresp" use="@id"/>
+<xsl:key name="affById"     match="/article/front/article-meta/aff"                  use="@id"/>
+-->
+  
+  <!-- Entry point: render a hidden wrapper containing all author popovers -->
+  <xsl:template match="/article" mode="author-popovers">
+    <div class="popovers popovers-authors" hidden="hidden" aria-hidden="true">
+      <xsl:for-each select="front/article-meta/contrib-group/contrib[@contrib-type='author']">
+        <xsl:variable name="aid"     select="generate-id()"/>
+        <xsl:variable name="panelId" select="concat('author-pop-', $aid)"/>
+        <xsl:variable name="labelId" select="concat('author-label-', $aid)"/>
+        
+        <!-- ORCID resolution (copy of masthead logic, kept in sync) -->
+        <xsl:variable name="orcid-id" select="normalize-space(contrib-id[@contrib-id-type='orcid'][1])"/>
+        <xsl:variable name="orcid-url">
+          <xsl:choose>
+            <xsl:when test="string-length($orcid-id)&gt;0">
+              <xsl:choose>
+                <xsl:when test="contains($orcid-id,'http')"><xsl:value-of select="$orcid-id"/></xsl:when>
+                <xsl:otherwise>https://orcid.org/<xsl:value-of select="$orcid-id"/></xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:when test="(.//ext-link | .//uri)[contains(@xlink:href,'orcid.org')]">
+              <xsl:value-of select="((.//ext-link | .//uri)[contains(@xlink:href,'orcid.org')])[1]/@xlink:href"/>
+            </xsl:when>
+            <xsl:otherwise/>
+          </xsl:choose>
+        </xsl:variable>
+        
+        <!-- presence flags (same as masthead) -->
+        <xsl:variable name="has-corresp" select="boolean(xref[@ref-type='corresp']) or boolean(../../author-notes/corresp)"/>
+        <xsl:variable name="has-orcid"   select="string-length(normalize-space($orcid-url)) &gt; 0"/>
+        <xsl:variable name="has-aff"     select="boolean(xref[@ref-type='aff'])"/>
+        <xsl:variable name="has-comp"    select="boolean(notes) or boolean(../../author-notes//fn[@fn-type='conflict'])"/>
+        
+        <!-- The popover itself (same markup you had before) -->
+        <div id="{$panelId}"
+          class="popover author-popover"
+          role="dialog"
+          aria-modal="false"
+          aria-labelledby="{$labelId}"
+          hidden="hidden"
+          tabindex="-1">
+          
+          <div class="popover-header">
+            <strong>
+              <xsl:value-of select="normalize-space(name/given-names)"/>
+              <xsl:text> </xsl:text>
+              <xsl:value-of select="normalize-space(name/surname)"/>
+            </strong>
+            <button type="button" class="popover-close" aria-label="Close">×</button>
+          </div>
+          
+          <!-- Corresponding -->
+          <xsl:if test="$has-corresp">
+            <div class="popover-section">
+              <div class="section-title">Corresponding Author</div>
+              <xsl:choose>
+                <xsl:when test="xref[@ref-type='corresp']">
+                  <xsl:for-each select="xref[@ref-type='corresp']/@rid">
+                    <xsl:variable name="c" select="key('correspById', .)[1]"/>
+                    <p>
+                      <xsl:choose>
+                        <xsl:when test="$c"><xsl:apply-templates select="$c/node()"/></xsl:when>
+                        <xsl:otherwise><span class="u-missing">[Correspondence not found: <xsl:value-of select="."/>]</span></xsl:otherwise>
+                      </xsl:choose>
+                    </p>
+                  </xsl:for-each>
+                </xsl:when>
+                <xsl:when test="../../author-notes/corresp">
+                  <xsl:for-each select="../../author-notes/corresp">
+                    <p><xsl:apply-templates/></p>
+                  </xsl:for-each>
+                </xsl:when>
+              </xsl:choose>
+            </div>
+          </xsl:if>
+          
+          <!-- ORCID -->
+          <div class="popover-section">
+            <div class="section-title">ORCID</div>
+            <xsl:choose>
+              <xsl:when test="$has-orcid">
+                <p>
+                  <a href="{$orcid-url}" rel="noopener" target="_blank">
+                    <img src="{$assets-path}img/orcid-icon.svg" alt="" width="16" height="16"/>
+                    <xsl:text> </xsl:text>
+                    <span class="orcid-id"><xsl:value-of select="substring-after($orcid-url,'orcid.org/')"/></span>
+                  </a>
+                </p>
+              </xsl:when>
+              <xsl:otherwise><p>No ORCID provided.</p></xsl:otherwise>
+            </xsl:choose>
+          </div>
+          
+          <!-- Affiliations -->
+          <div class="popover-section">
+            <div class="section-title">Affiliations</div>
+            <xsl:choose>
+              <xsl:when test="$has-aff">
+                <ul class="aff-list">
+                  <xsl:for-each select="xref[@ref-type='aff']/@rid">
+                    <li>
+                      <xsl:variable name="aff" select="key('affById', .)[1]"/>
+                      <xsl:choose>
+                        <xsl:when test="$aff"><xsl:apply-templates select="$aff/node()"/></xsl:when>
+                        <xsl:otherwise><span class="u-missing">[Affiliation not found: <xsl:value-of select="."/>]</span></xsl:otherwise>
+                      </xsl:choose>
+                    </li>
+                  </xsl:for-each>
+                </ul>
+              </xsl:when>
+              <xsl:otherwise><p>None declared.</p></xsl:otherwise>
+            </xsl:choose>
+          </div>
+          
+          <!-- Competing Interests -->
+          <div class="popover-section">
+            <div class="section-title">Competing Interests</div>
+            <xsl:choose>
+              <xsl:when test="$has-comp">
+                <xsl:choose>
+                  <xsl:when test="notes"><xsl:apply-templates select="notes/node()"/></xsl:when>
+                  <xsl:when test="../../author-notes//fn[@fn-type='conflict']">
+                    <xsl:for-each select="../../author-notes//fn[@fn-type='conflict']">
+                      <p><xsl:apply-templates/></p>
+                    </xsl:for-each>
+                  </xsl:when>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:otherwise><p>None declared.</p></xsl:otherwise>
+            </xsl:choose>
+          </div>
+          
+        </div>
+      </xsl:for-each>
+    </div>
+  </xsl:template>
 </xsl:stylesheet>
