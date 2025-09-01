@@ -1,0 +1,223 @@
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposHeadline-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposHeadline-LightItalic.woff2') format('woff2');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposHeadline-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposHeadline-RegularItalic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposHeadline-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposHeadline-MediumItalic.woff2') format('woff2');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposHeadline-Semibold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposHeadline-SemiboldItalic.woff2') format('woff2');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposText-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposText-BoldItalic.woff2') format('woff2');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Text';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposText-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Text';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposText-LightItalic.woff2') format('woff2');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Text';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposText-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Text';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposText-RegularItalic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Text';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposText-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Text';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposText-MediumItalic.woff2') format('woff2');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Text';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposText-Semibold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Text';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposText-SemiboldItalic.woff2') format('woff2');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Text';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposText-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Text';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/TestTiemposText-BoldItalic.woff2') format('woff2');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/Roboto-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/Roboto-RegularItalic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/Roboto-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/Roboto-MediumItalic.woff2') format('woff2');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/Roboto-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/Roboto-SemiBoldItalic.woff2') format('woff2');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/Roboto-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/var/www/html/ojs/plugins/themes/default/fonts/Roboto-BoldItalic.woff2') format('woff2');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}

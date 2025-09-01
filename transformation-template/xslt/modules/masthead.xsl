@@ -175,9 +175,13 @@ exclude-result-prefixes="xlink">
         <ul class="doi">
           <xsl:if test="article-meta/article-id[@pub-id-type='doi']">
             <li>
+              <span>
+                DOI:
+              </span>
               <a class="doi"
-                href="https://doi.org/{normalize-space(article-meta/article-id[@pub-id-type='doi'])}">
-                DOI: <xsl:value-of select="normalize-space(article-meta/article-id[@pub-id-type='doi'])"/>
+                href="https://doi.org/{normalize-space(article-meta/article-id[@pub-id-type='doi'])}"
+                target="_blank" rel="noopener">
+                <xsl:value-of select="normalize-space(article-meta/article-id[@pub-id-type='doi'])"/>
               </a>
             </li>
           </xsl:if>

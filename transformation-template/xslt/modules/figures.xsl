@@ -61,30 +61,64 @@
     
     <figure id="{$id}" class="figure" role="figure" aria-labelledby="{$id}-cap">
       
-      <div class="figure-actions" aria-label="Figure actions">
+      <!-- Compute number of images/supplements for this figure -->
+      <xsl:variable name="supp-count"
+        select="count(graphic | alternatives/graphic | supplementary-material//graphic)"/>
+      <xsl:variable name="has-supp" select="$supp-count &gt; 1"/>
+      
+      <div class="figure-actions" aria-label="Figure actions" data-supp-count="{$supp-count}">
         <!-- Left: prev/next grouped controls -->
         <div class="figure-nav" role="group" aria-label="Figure navigation">
           <!-- Previous -->
           <button type="button"
-            class="btn btn-icon prev-figure"
-            aria-label="Previous figure"
-            data-figure-nav="prev">
-            <!-- left chevron -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-              width="16" height="16" aria-hidden="true" focusable="false">
-              <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            class="btn btn-icon prev-figure">
+            <xsl:attribute name="class">
+              <xsl:text>btn btn-icon prev-figure </xsl:text>
+              <xsl:choose>
+                <xsl:when test="$has-supp">is-active</xsl:when>
+                <xsl:otherwise>is-inactive</xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+            <xsl:attribute name="aria-label">Previous figure image</xsl:attribute>
+            <xsl:attribute name="aria-disabled">
+              <xsl:choose>
+                <xsl:when test="$has-supp">false</xsl:when>
+                <xsl:otherwise>true</xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+            <xsl:if test="not($has-supp)">
+              <xsl:attribute name="disabled">disabled</xsl:attribute>
+              <xsl:attribute name="tabindex">-1</xsl:attribute>
+            </xsl:if>
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <path d="M10.5 12.4542L6.5 8.45422L10.5 4.45422" stroke="#43423E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
           
           <!-- Next -->
           <button type="button"
-            class="btn btn-icon next-figure"
-            aria-label="Next figure"
-            data-figure-nav="next">
-            <!-- right chevron -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-              width="16" height="16" aria-hidden="true" focusable="false">
-              <path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+            class="btn btn-icon next-figure">
+            <xsl:attribute name="class">
+              <xsl:text>btn btn-icon next-figure </xsl:text>
+              <xsl:choose>
+                <xsl:when test="$has-supp">is-active</xsl:when>
+                <xsl:otherwise>is-inactive</xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+            <xsl:attribute name="aria-label">Next figure image</xsl:attribute>
+            <xsl:attribute name="aria-disabled">
+              <xsl:choose>
+                <xsl:when test="$has-supp">false</xsl:when>
+                <xsl:otherwise>true</xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+            <xsl:if test="not($has-supp)">
+              <xsl:attribute name="disabled">disabled</xsl:attribute>
+              <xsl:attribute name="tabindex">-1</xsl:attribute>
+            </xsl:if>
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <!-- right chevron -->
+              <path d="M5.5 12.4542L9.5 8.45422L5.5 4.45422" stroke="#43423E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
         </div>
@@ -97,9 +131,10 @@
             rel="noopener"
             aria-label="Open figure image in new tab (Fullscreen)">
             <!-- fullscreen icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-              width="16" height="16" aria-hidden="true" focusable="false">
-              <path d="M7 14H5v5h5v-2H7v-3zm0-4h3V7h2V5H7v5zm10 7h-3v2h5v-5h-2v3zm0-11V5h-5v2h3v3h2V6z"/>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+              xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+              <path d="M5.83333 2.45422V4.45422C5.83333 4.80785 5.69286 5.14698 5.44281 5.39703C5.19276 5.64708 4.85362 5.78756 4.5 5.78756H2.5M14.5 5.78756H12.5C12.1464 5.78756 11.8072 5.64708 11.5572 5.39703C11.3071 5.14698 11.1667 4.80785 11.1667 4.45422V2.45422M11.1667 14.4542V12.4542C11.1667 12.1006 11.3071 11.7615 11.5572 11.5114C11.8072 11.2614 12.1464 11.1209 12.5 11.1209H14.5M2.5 11.1209H4.5C4.85362 11.1209 5.19276 11.2614 5.44281 11.5114C5.69286 11.7615 5.83333 12.1006 5.83333 12.4542V14.4542"
+                stroke="#43423E" stroke-width="1.36364" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             <span class="btn-label">Fullscreen</span>
           </a>

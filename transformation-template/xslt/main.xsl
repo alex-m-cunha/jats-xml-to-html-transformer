@@ -6,7 +6,7 @@
 
   <!-- ===== Parameters ===== -->
   <xsl:param name="assets-path" select="'../../../../transformation-template/assets/'" />           <!-- CSS/JS relative folder -->
-  <xsl:param name="pdf-href" select="''" />                 <!-- optional right-aside button -->
+  <xsl:param name="pdf-href" select="'../../../../transformation-template/assets/pdf/15dgxd54_PDF.pdf'" />                 <!-- optional right-aside button -->
   <xsl:param name="article-img-root" select="'../input/input-img/'"/>
   <xsl:param name="debug" select="'no'"/>
 
@@ -107,7 +107,7 @@
                       aria-selected="false"
                       aria-controls="panel-figures-tables"
                       tabindex="-1">
-                      Figures &amp; Tables
+                      Figures and Tables
                     </button>
                   </xsl:if>
                 </div>
@@ -192,6 +192,7 @@
         <script src="{$assets-path}js/popovers.js"></script>
         <script src="{$assets-path}js/tab-switching-functionality.js" defer="defer"></script>
         <script src="{$assets-path}js/toc.js" defer="defer"></script>
+        <script src="{$assets-path}js/lightbox.js" defer="defer"></script>
       </body>
     </html>
   </xsl:template>

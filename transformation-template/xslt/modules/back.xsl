@@ -245,28 +245,28 @@
             <button type="button" class="popover-close" aria-label="Close">×</button>
           </div>
           
-          <!-- Corresponding -->
-          <xsl:if test="$has-corresp">
+          <!-- Flag this author as corresponding only if they have an explicit xref → corresp -->
+          <xsl:variable name="is-corresp" select="count(xref[@ref-type='corresp']/@rid) &gt; 0"/>
+          
+          <!-- Corresponding (only for this corresponding author) -->
+          <xsl:if test="$is-corresp">
             <div class="popover-section">
               <div class="section-title">Corresponding Author</div>
-              <xsl:choose>
-                <xsl:when test="xref[@ref-type='corresp']">
-                  <xsl:for-each select="xref[@ref-type='corresp']/@rid">
-                    <xsl:variable name="c" select="key('correspById', .)[1]"/>
-                    <p>
-                      <xsl:choose>
-                        <xsl:when test="$c"><xsl:apply-templates select="$c/node()"/></xsl:when>
-                        <xsl:otherwise><span class="u-missing">[Correspondence not found: <xsl:value-of select="."/>]</span></xsl:otherwise>
-                      </xsl:choose>
-                    </p>
-                  </xsl:for-each>
-                </xsl:when>
-                <xsl:when test="../../author-notes/corresp">
-                  <xsl:for-each select="../../author-notes/corresp">
-                    <p><xsl:apply-templates/></p>
-                  </xsl:for-each>
-                </xsl:when>
-              </xsl:choose>
+              
+              <!-- Resolve via xref rid(s) → author-notes/corresp -->
+              <xsl:for-each select="xref[@ref-type='corresp']/@rid">
+                <xsl:variable name="c" select="key('correspById', .)[1]"/>
+                <p>
+                  <xsl:choose>
+                    <xsl:when test="$c">
+                      <xsl:apply-templates select="$c/node()"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <span class="u-missing">[Correspondence not found: <xsl:value-of select="."/>]</span>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </p>
+              </xsl:for-each>
             </div>
           </xsl:if>
           
