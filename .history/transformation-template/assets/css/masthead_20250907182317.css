@@ -434,7 +434,7 @@
         padding: 0.75rem 0.75rem;
         font-size: 0.75rem;
         display: inline-flex !important;
-        justify-content: space-between !important;
+        justify-content: space-around !important;
     }
 
     .doi {
@@ -445,7 +445,7 @@
     .doi li {
         display: flex !important;
         flex-direction: row !important;
-        justify-content: start !important;
+        justify-content: center !important;
         gap: 0.25rem !important;
     }
 
@@ -532,7 +532,6 @@
     .doi li {
         display: flex;
         flex-direction: row;
-        justify-content: end;
     }
 
     .pub-date-and-article-type {
@@ -566,67 +565,6 @@
         padding: 1.5rem 0rem;
         flex-basis: 50%;
         min-height: 2.5rem;
-    }
-
-}
-
-
-
-
-
-@media screen and (min-width: 310px) and (max-width: 375px) {
-
-    .volume-year {
-        border-top: none !important;
-        line-height: 1.25rem !important;
-        padding: 0.75rem 0.75rem !important;
-        font-size: 0.75rem !important;
-        gap: 0.35rem !important;
-        border-left: none !important;
-        border-right: none !important;
-    }
-
-    .pub-date-article-type-doi-wrapper {
-        line-height: 1.25rem !important;
-        padding: 0.75rem 0.75rem !important;
-        font-size: 0.75rem !important;
-        display: inline-flex !important;
-        border-left: none !important;
-        border-right: none !important;
-        gap: 0.25rem !important;
-    }
-
-    .doi {
-        text-align: center !important;
-        flex-basis: 50% !important;
-        align-content: center !important;
-    }
-
-    .doi li {
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-    }
-
-    .pub-date-and-article-type {
-        list-style: none !important;
-        display: inline-flex !important;
-        flex-wrap: wrap !important;
-        flex-direction: column !important;
-        text-transform: uppercase !important;
-        justify-content: center !important;
-        flex-basis: 50% !important;
-        text-align: center !important;
-    }
-
-    .volume-year li:nth-child(2)::before {
-        content: "/" !important;
-        margin-right: 0.35rem !important;
-    }
-
-    .pub-date-and-article-type li:nth-child(2)::before {
-        content: "" !important;
-        margin-right: 0rem !important;
     }
 
 }

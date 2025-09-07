@@ -107,10 +107,6 @@ table {
   --fz-5: 2.25rem;
 }
 
-strong, b {
-  font-weight: unset;
-}
-
 html,body{margin:0;padding:0}
 body{
   color:#43423E;

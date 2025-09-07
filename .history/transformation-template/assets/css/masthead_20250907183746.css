@@ -616,7 +616,6 @@
         text-transform: uppercase !important;
         justify-content: center !important;
         flex-basis: 50% !important;
-        text-align: center !important;
     }
 
     .volume-year li:nth-child(2)::before {

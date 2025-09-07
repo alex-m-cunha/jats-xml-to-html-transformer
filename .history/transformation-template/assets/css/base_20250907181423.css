@@ -107,7 +107,7 @@ table {
   --fz-5: 2.25rem;
 }
 
-strong, b {
+strong b {
   font-weight: unset;
 }
 

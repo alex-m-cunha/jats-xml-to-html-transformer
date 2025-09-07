@@ -107,8 +107,8 @@ table {
   --fz-5: 2.25rem;
 }
 
-strong, b {
-  font-weight: unset;
+strong b {
+  
 }
 
 html,body{margin:0;padding:0}

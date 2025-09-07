@@ -577,46 +577,45 @@
 @media screen and (min-width: 310px) and (max-width: 375px) {
 
     .volume-year {
-        border-top: none !important;
-        line-height: 1.25rem !important;
-        padding: 0.75rem 0.75rem !important;
-        font-size: 0.75rem !important;
-        gap: 0.35rem !important;
+        border-top: none;
+        line-height: 1.25rem;
+        padding: 0.75rem 0.75rem;
+        font-size: 0.75rem;
+        gap: 0.35rem;
         border-left: none !important;
         border-right: none !important;
     }
 
     .pub-date-article-type-doi-wrapper {
-        line-height: 1.25rem !important;
-        padding: 0.75rem 0.75rem !important;
-        font-size: 0.75rem !important;
-        display: inline-flex !important;
+        line-height: 1.25rem;
+        padding: 0.75rem 0.75rem;
+        font-size: 0.75rem;
+        display: inline-flex;
         border-left: none !important;
         border-right: none !important;
-        gap: 0.25rem !important;
+        gap: 0.25rem;
     }
 
     .doi {
-        text-align: center !important;
-        flex-basis: 50% !important;
-        align-content: center !important;
+        text-align: center;
+        flex-basis: 50%;
+        align-content: center;
     }
 
     .doi li {
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: center !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .pub-date-and-article-type {
         list-style: none !important;
         display: inline-flex !important;
         flex-wrap: wrap !important;
-        flex-direction: column !important;
+        flex-direction: row !important;
         text-transform: uppercase !important;
         justify-content: center !important;
         flex-basis: 50% !important;
-        text-align: center !important;
     }
 
     .volume-year li:nth-child(2)::before {
@@ -625,8 +624,8 @@
     }
 
     .pub-date-and-article-type li:nth-child(2)::before {
-        content: "" !important;
-        margin-right: 0rem !important;
+        content: "" !important;;
+        margin-right: 0rem;
     }
 
 }

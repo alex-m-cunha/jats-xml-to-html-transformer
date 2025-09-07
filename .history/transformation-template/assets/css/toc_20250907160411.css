@@ -46,7 +46,6 @@
     top: 1.25rem;
     max-height: calc(100vh - 4rem);
     overflow: visible;
-    margin: 2.5rem 0rem;
 }
 
 nav.toc a.is-active {

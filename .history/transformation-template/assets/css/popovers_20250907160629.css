@@ -71,79 +71,9 @@ body .popovers[aria-hidden="false"]::before {
 }
 
 
-@media screen and (min-width: 1200px) {
-
-    .popover {
-        max-width: 40vw;
-    }
-    
-    .author-popover {
-        max-width: 20vw;
-        width: 100%;
-        font-size: 1.35rem;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 300;
-    }
-
-    .ref-popover {
-        width: 100%;
-    }
-
-    .fn-popover {
-        width: 100%;
-    }
-
-    .ref-popover .popover-header strong {
-        font-size: 1.5rem;
-        font-weight: 300;
-    }
-
-    .fn-popover .popover-header strong {
-        font-size: 1.5rem;
-        font-weight: 300;
-    }
-
-    .ref-text {
-        display: inline;
-    }
-
-    .popover-body {
-        padding-right: 2.5rem;
-    }
-
-    .popover-body a {
-        word-break: break-all;
-    }
-
-    .popover-header strong {
-        flex: 1;
-        padding-top: 0.25rem;                 
-    }
-
-    .popover-section .section-title {
-        font-family: 'Roboto', sans-serif;
-        line-height: 1.25rem;
-        color: #767674;
-        text-transform: uppercase;
-        font-size: 0.75rem;
-        margin: 0.65rem 0 0 0
-    }
-
-    .popover-section p a {
-        display: inline-flex;
-        gap: 0.5rem;
-    }
-
-    .popover-section p {
-        font-size: 0.875rem;
-        line-height: 1.25rem;
-    }
-
-}
 
 
-
-@media screen and (min-width: 992px) and (max-width: 1199px) {
+@media screen and (min-width: 992px) {
 
     .popover {
         max-width: 60vw;
@@ -224,7 +154,7 @@ body .popovers[aria-hidden="false"]::before {
     }
     
     .author-popover {
-        max-width: 40vw;
+        max-width: 30vw;
         width: 100%;
         font-size: 1.35rem;
         font-family: 'Roboto', sans-serif;
@@ -299,7 +229,7 @@ body .popovers[aria-hidden="false"]::before {
     }
     
     .author-popover {
-        max-width: 50vw;
+        max-width: 30vw;
         width: 100%;
         font-size: 1.35rem;
         font-family: 'Roboto', sans-serif;

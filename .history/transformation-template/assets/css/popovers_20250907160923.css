@@ -71,14 +71,14 @@ body .popovers[aria-hidden="false"]::before {
 }
 
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 992px) {
 
     .popover {
-        max-width: 40vw;
+        max-width: 60vw;
     }
     
     .author-popover {
-        max-width: 20vw;
+        max-width: 30vw;
         width: 100%;
         font-size: 1.35rem;
         font-family: 'Roboto', sans-serif;
@@ -143,7 +143,7 @@ body .popovers[aria-hidden="false"]::before {
 
 
 
-@media screen and (min-width: 992px) and (max-width: 1199px) {
+@media screen and (min-width: 992px) {
 
     .popover {
         max-width: 60vw;

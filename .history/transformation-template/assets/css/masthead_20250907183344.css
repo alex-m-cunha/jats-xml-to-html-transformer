@@ -612,11 +612,10 @@
         list-style: none !important;
         display: inline-flex !important;
         flex-wrap: wrap !important;
-        flex-direction: column !important;
+        flex-direction: row !important;
         text-transform: uppercase !important;
         justify-content: center !important;
         flex-basis: 50% !important;
-        text-align: center !important;
     }
 
     .volume-year li:nth-child(2)::before {
