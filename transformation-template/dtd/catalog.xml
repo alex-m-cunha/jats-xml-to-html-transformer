@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- XML catalog mapping JATS public/system identifiers to local files -->
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <!-- Match the system identifier used in the article DOCTYPE -->
+  <system systemId="JATS-journalpublishing.dtd" uri="journalpublishing.dtd"/>
+  <system systemId="JATS-journalpublishing2.dtd" uri="journalpublishing.dtd"/>
+  <!-- Match the public identifier from the article DOCTYPE -->
+  <public
+    publicId="-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN"
+    uri="journalpublishing.dtd"/>
+  <!-- Add more entries here if your XML references other modules -->
+</catalog>

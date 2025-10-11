@@ -1,0 +1,18 @@
+[info] Start Thu Oct  9 19:08:53 WEST 2025
+[info] XML: /Users/alexandre.cunha/Library/CloudStorage/GoogleDrive-onlya.studio.design@gmail.com/My Drive/Projects/Stanford University/Article and Word_PDF Template/jats-to-html-transformation-rel/articles/vol-001-2025/15dgxd54_XML/input/15dgxd54_XML_01_10_2025.xml
+[info] OUT: /Users/alexandre.cunha/Library/CloudStorage/GoogleDrive-onlya.studio.design@gmail.com/My Drive/Projects/Stanford University/Article and Word_PDF Template/jats-to-html-transformation-rel/articles/vol-001-2025/15dgxd54_XML/input/output/index.html
+[info] No PDF for 15dgxd54_XML_01_10_2025
+[info] CP : /Users/alexandre.cunha/Library/CloudStorage/GoogleDrive-onlya.studio.design@gmail.com/My Drive/Projects/Stanford University/Article and Word_PDF Template/jats-to-html-transformation-rel/tools/saxon-he-12.9.jar:/Users/alexandre.cunha/Library/CloudStorage/GoogleDrive-onlya.studio.design@gmail.com/My Drive/Projects/Stanford University/Article and Word_PDF Template/jats-to-html-transformation-rel/tools/xmlresolver-5.3.3.jar:/Users/alexandre.cunha/Library/CloudStorage/GoogleDrive-onlya.studio.design@gmail.com/My Drive/Projects/Stanford University/Article and Word_PDF Template/jats-to-html-transformation-rel/tools/xmlresolver-5.3.3-data.jar
+[info] Catalog: /Users/alexandre.cunha/Library/CloudStorage/GoogleDrive-onlya.studio.design@gmail.com/My Drive/Projects/Stanford University/Article and Word_PDF Template/jats-to-html-transformation-rel/transformation-template/dtd/catalog.xml
+SaxonJ-HE 12.9 from Saxonica
+Java version 21.0.7
+Stylesheet compilation time: 335.05275ms
+Processing file:/Users/alexandre.cunha/Library/CloudStorage/GoogleDrive-onlya.studio.design@gmail.com/My%20Drive/Projects/Stanford%20University/Article%20and%20Word_PDF%20Template/jats-to-html-transformation-rel/articles/vol-001-2025/15dgxd54_XML/input/15dgxd54_XML_01_10_2025.xml
+Using parser com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser
+Building tree for file:/Users/alexandre.cunha/Library/CloudStorage/GoogleDrive-onlya.studio.design@gmail.com/My%20Drive/Projects/Stanford%20University/Article%20and%20Word_PDF%20Template/jats-to-html-transformation-rel/articles/vol-001-2025/15dgxd54_XML/input/15dgxd54_XML_01_10_2025.xml using class net.sf.saxon.tree.tiny.TinyBuilder
+Tree built in 77.830042ms
+Tree size: 761 nodes, 27678 characters, 258 attributes
+Execution time: 160.992875ms
+Memory used: 29Mb
+[info] Saxon exit: 0
+[info] Done: /Users/alexandre.cunha/Library/CloudStorage/GoogleDrive-onlya.studio.design@gmail.com/My Drive/Projects/Stanford University/Article and Word_PDF Template/jats-to-html-transformation-rel/articles/vol-001-2025/15dgxd54_XML/input/output/index.html
