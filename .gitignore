@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# Logs
+*.log
+transformation.log
+transformation-error.txt
+
+# Generated
+/output/
+/dist/
+
+# Per-article source (keep out of git)
+# /articles/
+
+# Bundled runtimes and jars (ship via Releases/CI)
+jre/
+tools/*.jar
+tools/*.zip
+tools/*.tgz
