@@ -34,12 +34,20 @@
   <xsl:include href="modules/publisher-header.xsl"/>
   <xsl:include href="modules/footer.xsl"/>
   <xsl:include href="modules/appendix.xsl"/>
+  
+
 
   <!-- ===== Root template → full HTML page ===== -->
   <xsl:template match="/">
     <xsl:variable name="title"
       select="normalize-space(/article/front/article-meta/title-group/article-title)" />
-
+    
+    <xsl:comment>
+      Built: <xsl:value-of select="format-dateTime(current-dateTime(),'[Y]-[M01]-[D]T[H01]:[m01]:[s01]Z')"/>
+      | Saxon <xsl:value-of select="system-property('xsl:product-version')"/>
+      | Template v0.9.0-beta
+    </xsl:comment>
+    
     <html lang="en">
       <head>
         <meta charset="utf-8" />
