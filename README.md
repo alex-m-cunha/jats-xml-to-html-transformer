@@ -46,11 +46,11 @@ Use the OS guide:
 - The repo excludes heavy binaries (jre/, jars, output/, dist/). Packages for editors are attached to Releases.
 - CSS/JS are bundled into assets/stylesheets/css.css and assets/stylesheets/javascript.js.
 - Generated files (stable structure):
-  -  output/index.html
+  - output/index.html
   - output/assets/stylesheets/css.css
   - output/assets/stylesheets/javascript.js
-  - output/assets/images/*       (copied from article-img/)
-  - output/multimedia/<articleId>_PDF.pdf   (if input/pdf/<articleId>_PDF.pdf exists)
+  - output/assets/img/*                 (copied from article-img/)
+  - output/assets/multimedia/<articleId>_PDF.pdf  (if input/pdf/<articleId>_PDF.pdf exists)
 
 ## Troubleshooting
 If something goes wrong, check `transformation.log` inside the article folder.
@@ -83,3 +83,17 @@ xattr -dr com.apple.quarantine scripts/run-mac.command
      run-win.bat
      ```
   3. Read any messages shown in the terminal; if errors appear, check `transformation.log`.
+
+## License
+
+MIT License
+Copyright (c) 2025 Alexandre Cunha
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+## Third‑party software and licenses
+This package redistributes Saxon‑HE (MPL‑2.0), XML Resolver (Apache‑2.0), and, in editor builds, an OpenJDK runtime (GPLv2 + Classpath Exception). See THIRD-PARTY-NOTICES.md for details and redistribution requirements.

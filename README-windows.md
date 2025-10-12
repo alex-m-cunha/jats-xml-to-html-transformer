@@ -46,4 +46,17 @@
 
 - No PDF link: ensure `input\pdf\<articleId>_PDF.pdf` exists.  
 - Missing images: ensure files are in `article-img\` and match XML references.  
-- Java not found: keep `jre\win-x64\` in place or install Java 17 system‑wide.
+- Java not found: keep `jre\win-x64\` in place or install Java 17 system‑wide.- If PowerShell is restricted: run-win.bat will launch with ExecutionPolicy Bypass
+- Logs: transformation.log next to the article folder   
+
+# Windows Guide
+
+- Double‑click scripts/run-win.bat
+- Pick input\<articleId>.xml
+- Output: output\index.html opens automatically
+
+## Command‑line
+
+- scripts\run-win.bat --xml "C:\path\to\input\<id>_XML.xml" --out "C:\tmp\index.html" --verbose
+
+
