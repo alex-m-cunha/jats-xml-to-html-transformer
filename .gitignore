@@ -1,6 +1,10 @@
 # macOS
 .DS_Store
 
+# Editors/IDE
+.vscode/
+.history/
+
 # Logs
 *.log
 transformation.log
