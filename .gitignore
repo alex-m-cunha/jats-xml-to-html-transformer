@@ -12,13 +12,12 @@ transformation-error.txt
 
 # Generated
 /output/
+# CI build artifacts
 /dist/
 
-# Per-article source (keep out of git)
-# /articles/
-
-# Bundled runtimes and jars (ship via Releases/CI)
+# Ship binaries via Releases, not Git history
 jre/
+_windows_files/
 tools/*.jar
 tools/*.zip
 tools/*.tgz
