@@ -22,8 +22,14 @@
 
   function setActive(link, toc) {
     if (!toc) return;
+    // Clear previous active state on links and list items
     toc.querySelectorAll('a.is-active').forEach(a => a.classList.remove('is-active'));
-    if (link) link.classList.add('is-active');
+    toc.querySelectorAll('li.is-active').forEach(li => li.classList.remove('is-active'));
+    if (link) {
+      link.classList.add('is-active');
+      const li = link.closest('li');
+      if (li) li.classList.add('is-active');
+    }
   }
 
   // Smooth scroll on TOC click (with offset)
@@ -49,6 +55,33 @@
 
   let observer = null;
 
+  // One-time default highlight for a specific TOC (per-TOC)
+  function defaultHighlightOnceFor(toc) {
+    if (!toc) return;
+    if (toc.hasAttribute('data-toc-defaulted')) return;
+
+    const hasActive = !!toc.querySelector('a.is-active, li.is-active');
+    if (hasActive) { toc.setAttribute('data-toc-defaulted', 'true'); return; }
+
+    const map = buildMap(toc);
+    if (!map.size) { return; } // no links yet; try again later
+
+    const hash = decodeURIComponent((location.hash || '').slice(1));
+    const hashValid = hash && map.has(hash) && document.getElementById(hash);
+    if (hashValid) { toc.setAttribute('data-toc-defaulted', 'true'); return; }
+
+    for (const [id, a] of map) {
+      if (document.getElementById(id)) {
+        a.classList.add('is-active');
+        const li = a.closest('li');
+        if (li) li.classList.add('is-active');
+        toc.setAttribute('data-toc-defaulted', 'true');
+        return;
+      }
+    }
+    // If we didn’t find a valid target yet, do nothing; we’ll try again on next init when content is ready
+  }
+
   function initObserver() {
     if (observer) { observer.disconnect(); observer = null; }
 
@@ -63,6 +96,15 @@
       .map(id => document.getElementById(id))
       .filter(Boolean);
 
+    // Determine a sensible first link to use as fallback when none qualify
+    const firstLink = (function(){
+      for (const id of map.keys()) {
+        const a = map.get(id);
+        if (a && document.getElementById(id)) return a;
+      }
+      return null;
+    })();
+
     if (!('IntersectionObserver' in window)) {
       // Fallback: basic onscroll
       const onScroll = () => {
@@ -72,7 +114,7 @@
           const delta = Math.abs(y);
           if (y <= HEADER_OFFSET && delta < bestDelta) { best = sec; bestDelta = delta; }
         });
-        setActive(best ? map.get(best.id) : null, toc);
+        setActive(best ? map.get(best.id) : firstLink, toc);
       };
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll);
@@ -100,7 +142,7 @@
           const delta = Math.abs(y);
           if (y <= HEADER_OFFSET && delta < bestDelta) { candidate = sec; bestDelta = delta; }
         });
-        setActive(candidate ? map.get(candidate.id) : null, toc);
+        setActive(candidate ? map.get(candidate.id) : firstLink, toc);
       }
     }, {
       // Shrink the observable area so the “active” band is roughly middle of viewport
@@ -110,6 +152,9 @@
     });
 
     targets.forEach(sec => observer.observe(sec));
+
+    // Ensure a default is marked active once for this TOC when it becomes visible
+    defaultHighlightOnceFor(toc);
   }
 
   // Re-init when panels/tabs change visibility
@@ -117,6 +162,12 @@
   mo.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['hidden', 'class'] });
 
   // Kickoff
-  window.addEventListener('load', initObserver);
-  document.addEventListener('DOMContentLoaded', initObserver);
+  window.addEventListener('load', () => {
+    initObserver();
+    requestAnimationFrame(() => defaultHighlightOnceFor(getVisibleToc()));
+  });
+  document.addEventListener('DOMContentLoaded', () => {
+    initObserver();
+    requestAnimationFrame(() => defaultHighlightOnceFor(getVisibleToc()));
+  });
 })();

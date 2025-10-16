@@ -20,21 +20,20 @@
                 </xsl:choose>
             </xsl:attribute>
             
-            <a class="btn primary" target="_blank" rel="noopener"> 
-                <!-- href: real URL or placeholder -->
-                <xsl:attribute name="href">
-                    <xsl:choose>
-                        <xsl:when test="$pdf-available">
-                            <xsl:value-of select="$pdf-href"/>
-                        </xsl:when>
-                        <xsl:otherwise>#</xsl:otherwise>
-                    </xsl:choose>
-                </xsl:attribute>
-                
-                <!-- a11y: make the link non-focusable/announced as disabled when no PDF -->
+            <a class="btn primary"> 
+                <!-- Interactive only when a PDF is available -->
+                <xsl:if test="$pdf-available">
+                    <xsl:attribute name="href"><xsl:value-of select="$pdf-href"/></xsl:attribute>
+                    <xsl:attribute name="target">_blank</xsl:attribute>
+                    <xsl:attribute name="rel">noopener</xsl:attribute>
+                </xsl:if>
+
+                <!-- a11y: make the control non-focusable/announced as disabled when no PDF -->
                 <xsl:if test="not($pdf-available)">
                     <xsl:attribute name="aria-disabled">true</xsl:attribute>
                     <xsl:attribute name="tabindex">-1</xsl:attribute>
+                    <!-- prevent pointer interaction when unavailable -->
+                    <xsl:attribute name="style">pointer-events: none; cursor: not-allowed;</xsl:attribute>
                 </xsl:if>
                 
                 <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -94,22 +93,40 @@
                         <path d="M1.5 3.75L6 8.25L10.5 3.75" stroke="#43423E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </summary>
-    
-                <!-- Assume publishers provide a fully formatted citation string here: -->
-                <!--
-                /article/front/article-meta/custom-meta-group/custom-meta[meta-name='citation']/meta-value -->
-                <xsl:variable name="cite"
-                    select="/article/front/article-meta/custom-meta-group/custom-meta[meta-name='citation']/meta-value" />
-    
+                
+                <xsl:variable name="p" select="/article/front/article-meta/author-notes/fn/p"/>
+                
                 <p id="cite-text">
                     <xsl:choose>
-                        <xsl:when test="$cite">
-                            <xsl:value-of select="normalize-space($cite)" />
+                        <xsl:when test="$p/bold[normalize-space(.)='HOW TO CITE:']">
+                            <xsl:for-each select="$p/node()
+                                [preceding-sibling::bold[normalize-space(.)='HOW TO CITE:']]
+                                [not(self::bold[normalize-space(.)='HOW TO CITE:'])]">
+                                <xsl:choose>
+                                    <xsl:when test="self::text() and position()=1">
+                                        <!-- crude trim: drop leading ': ' if present, else just output -->
+                                        <xsl:variable name="t" select="."/>
+                                        <xsl:choose>
+                                            <xsl:when test="starts-with($t, ': ')">
+                                                <xsl:value-of select="substring($t, 3)"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="normalize-space(concat(' ', $t))"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:copy-of select="."/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:for-each>
                         </xsl:when>
-                        <xsl:otherwise>Full citation not provided.</xsl:otherwise>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="$p/node()"/>
+                        </xsl:otherwise>
                     </xsl:choose>
                 </p>
-    
+                
                 <!-- Button you’ll wire up in JS -->
                 <button type="button" class="btn secondary" data-copy="#cite-text">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -187,47 +204,37 @@
             </details>
     
             <!-- ============== DATA AVAILABILITY ============== -->
-            <details class="accordion">
-                <summary role="heading" aria-level="3">
-                    <span>Data Availability</span>
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1.5 3.75L6 8.25L10.5 3.75" stroke="#43423E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </summary>
-                <xsl:variable name="data"
-                    select="/article/front/article-meta/notes[@notes-type='data-availability']
-                            | /article/back/sec[@sec-type='data-availability']" />
-                <xsl:choose>
-                    <xsl:when test="$data">
-                        <xsl:for-each select="$data">
-                            <p>
-                                <xsl:apply-templates />
-                            </p>
-                        </xsl:for-each>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <p>None declared.</p>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </details>
+            <xsl:variable name="data"
+                select="/article/front/article-meta/notes[@notes-type='data-availability']
+                        | /article/back/*[@sec-type='data-availability' or @fn-type='data-availability' or @content-type='data-availability']" />
+            <xsl:if test="$data">
+                <details class="accordion">
+                    <summary role="heading" aria-level="3">
+                        <span>Data Availability</span>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1.5 3.75L6 8.25L10.5 3.75" stroke="#43423E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </summary>
+                    <xsl:for-each select="$data">
+                        <p>
+                            <xsl:apply-templates />
+                        </p>
+                    </xsl:for-each>
+                </details>
+            </xsl:if>
     
             <!-- ============== ACKNOWLEDGEMENTS ============== -->
-            <details class="accordion">
-                <summary role="heading" aria-level="3">
-                    <span>Acknowledgements</span>
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1.5 3.75L6 8.25L10.5 3.75" stroke="#43423E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </summary>
-                <xsl:choose>
-                    <xsl:when test="/article/back/ack/p">
-                        <xsl:apply-templates select="/article/back/ack/p" />
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <p>None declared.</p>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </details>
+            <xsl:if test="/article/back/ack/p">
+                <details class="accordion">
+                    <summary role="heading" aria-level="3">
+                        <span>Acknowledgements</span>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1.5 3.75L6 8.25L10.5 3.75" stroke="#43423E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </summary>
+                    <xsl:apply-templates select="/article/back/ack/p" />
+                </details>
+            </xsl:if>
     
             <!-- ============== COPYRIGHT & LICENSE (static) ============== -->
             <details class="accordion">

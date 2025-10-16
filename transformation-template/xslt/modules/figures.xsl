@@ -145,7 +145,6 @@
       <div class="figure-labelline">
         <strong class="fig-label">
           <xsl:value-of select="$fig-label-text"/>
-          <xsl:text>.</xsl:text>
         </strong>
       </div>
       

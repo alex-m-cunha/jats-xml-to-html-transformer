@@ -111,6 +111,8 @@ strong, b {
   font-weight: unset;
 }
 
+italic { font-style: italic; }
+
 html,body{margin:0;padding:0}
 body{
   color:#43423E;
@@ -146,6 +148,11 @@ h2 .sec-title {
     margin-bottom: 1.5rem;
     text-align: justify;
     line-height: 1.625;
+    hyphens: auto;
+    overflow-wrap: normal;
+    word-break: normal;
+    text-justify: inter-word;
+    text-wrap: pretty;   
 }
 
 #abstract {

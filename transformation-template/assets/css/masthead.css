@@ -31,6 +31,16 @@
     line-height: 2.5rem;
 }
 
+.article-title sup {
+    font-size: 1.25rem;
+    margin-left: 0.2rem;
+    line-height: 1;
+}
+
+.article-title sup span button {
+    text-decoration: none !important;
+}
+
 .authors {
     font-family: 'Roboto', sans-serif;
     line-height: 1.35rem;

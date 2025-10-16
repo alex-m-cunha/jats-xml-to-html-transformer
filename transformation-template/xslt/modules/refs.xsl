@@ -85,11 +85,11 @@
     <!-- Generic URLs -->
     <xsl:variable name="generic-urls"
       select="$links[not(contains(@xlink:href,'doi.org')
-      or contains(@xlink:href,'pubmed.ncbi.nlm.nih.gov')
-      or contains(@xlink:href,'ncbi.nlm.nih.gov/pubmed')
-      or contains(@xlink:href,'ncbi.nlm.nih.gov/pmc')
-      or contains(@xlink:href,'researchgate.net')
-      or contains(@xlink:href,'scholar.google'))]/@xlink:href"/>
+            or contains(@xlink:href,'pubmed.ncbi.nlm.nih.gov')
+            or contains(@xlink:href,'ncbi.nlm.nih.gov/pubmed')
+            or contains(@xlink:href,'ncbi.nlm.nih.gov/pmc')
+            or contains(@xlink:href,'researchgate.net')
+            or contains(@xlink:href,'scholar.google'))]/@xlink:href"/>
     
     <!-- Output badges inline with spacing -->
     <xsl:if test="string-length(normalize-space($doi-url)) or string-length(normalize-space($pmid-url)) or string-length(normalize-space($pmc-url)) or string-length(normalize-space($rg-url)) or string-length(normalize-space($scholar-url)) or count($generic-urls)&gt;0">

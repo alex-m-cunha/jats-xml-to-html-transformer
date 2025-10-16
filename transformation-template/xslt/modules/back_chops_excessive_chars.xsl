@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                exclude-result-prefixes="xlink">
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  exclude-result-prefixes="xlink">
   
   <!-- =========================
        REFERENCES (main section)
@@ -165,10 +165,10 @@
     <!-- Generic full URLs -->
     <xsl:variable name="generic-urls"
       select="$links[not(contains(@xlink:href,'doi.org') or
-            contains(@xlink:href,'pubmed.ncbi.nlm.nih.gov') or contains(@xlink:href,'ncbi.nlm.nih.gov/pubmed') or
-            contains(@xlink:href,'ncbi.nlm.nih.gov/pmc') or
-            contains(@xlink:href,'researchgate.net') or
-            contains(@xlink:href,'scholar.google'))]/@xlink:href"/>
+      contains(@xlink:href,'pubmed.ncbi.nlm.nih.gov') or contains(@xlink:href,'ncbi.nlm.nih.gov/pubmed') or
+      contains(@xlink:href,'ncbi.nlm.nih.gov/pmc') or
+      contains(@xlink:href,'researchgate.net') or
+      contains(@xlink:href,'scholar.google'))]/@xlink:href"/>
     
     <!-- Emit links inline, separated by 3 spaces -->
     <xsl:if test="normalize-space($doi-url)!=''">
@@ -218,13 +218,13 @@
         <xsl:variable name="num" select="count(preceding-sibling::ref) + 1"/>
         <xsl:variable name="popId" select="concat('ref-pop-',$rid)"/>
         <div id="{concat('ref-pop-',$rid)}"
-             class="popover ref-popover"
-             role="dialog"
-             aria-modal="false"
-             aria-labelledby="{concat('ref-pop-',$rid,'-h')}"
-             aria-describedby="{concat('ref-pop-',$rid,'-b')}"
-             tabindex="-1"
-             hidden="hidden">
+          class="popover ref-popover"
+          role="dialog"
+          aria-modal="false"
+          aria-labelledby="{concat('ref-pop-',$rid,'-h')}"
+          aria-describedby="{concat('ref-pop-',$rid,'-b')}"
+          tabindex="-1"
+          hidden="hidden">
           <span class="popover-header">
             <strong id="{concat('ref-pop-',$rid,'-h')}">Reference</strong>
             <button type="button" class="popover-close" aria-label="Close">
@@ -271,7 +271,7 @@
       </xsl:for-each>
     </div>
   </xsl:template>
-  
+
   
   <!-- ============ FOOTNOTE POPOVERS (hidden) ============ -->
   <!-- Emits a single hidden wrapper with one dialog per <fn> -->
@@ -285,9 +285,9 @@
         <xsl:variable name="popBody" select="concat($popId,'-b')"/>
         
         <div id="{$popId}" class="popover fn-popover"
-             role="dialog" aria-modal="false"
-             aria-labelledby="{$popHead}" aria-describedby="{$popBody}"
-             hidden="hidden" aria-hidden="true" tabindex="-1">
+          role="dialog" aria-modal="false"
+          aria-labelledby="{$popHead}" aria-describedby="{$popBody}"
+          hidden="hidden" aria-hidden="true" tabindex="-1">
           <span class="popover-header">
             <strong id="{$popHead}">Footnote <xsl:value-of select="$num"/></strong>
             <button type="button" class="popover-close" aria-label="Close footnote {$num}">
@@ -307,9 +307,9 @@
   
   <!-- Keys you already use elsewhere (make sure these exist once globally) -->
   <!--
-       <xsl:key name="correspById" match="/article/front/article-meta/author-notes/corresp" use="@id"/>
-       <xsl:key name="affById"     match="/article/front/article-meta/aff"                  use="@id"/>
-  -->
+<xsl:key name="correspById" match="/article/front/article-meta/author-notes/corresp" use="@id"/>
+<xsl:key name="affById"     match="/article/front/article-meta/aff"                  use="@id"/>
+-->
   
   <!-- Entry point: render a hidden wrapper containing all author popovers -->
   <xsl:template match="/article" mode="author-popovers">
@@ -344,12 +344,12 @@
         
         <!-- The popover itself (same markup you had before) -->
         <div id="{$panelId}"
-             class="popover author-popover"
-             role="dialog"
-             aria-modal="false"
-             aria-labelledby="{$labelId}"
-             hidden="hidden"
-             tabindex="-1">
+          class="popover author-popover"
+          role="dialog"
+          aria-modal="false"
+          aria-labelledby="{$labelId}"
+          hidden="hidden"
+          tabindex="-1">
           
           <div class="popover-header">
             <strong>

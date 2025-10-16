@@ -198,7 +198,7 @@
             <app id="app1">
                 <title>Appendix</title>
                 <fig id="f1" position="float" fig-type="figure">
-                    <graphic orientation="portrait" position="float" xlink:href="15dgxd54_g001.png"/>
+                    <graphic orientation="portrait" position="float" xlink:href="10-21627_g001.png"/>
                     <p><italic>Note</italic>. The APCs are for Elsevier, Sage, Springer Nature, and Wiley, inclusive of mandatory publication fees and exclusive of taxes. APCs waived for new OA journals, and those sponsored by a third party or invoiced by journal owners directly, are excluded. Data were downloaded from the publishers&#x2019; websites in March 2025.</p>
                 </fig>
             </app>
@@ -231,3 +231,6 @@
         </ref-list>
     </back>
 </article>
+
+
+

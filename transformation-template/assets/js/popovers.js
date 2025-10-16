@@ -12,6 +12,19 @@
   function wrapperOf(pop) { return pop.closest('.popovers'); }
   function byId(id) { return document.getElementById(id); }
 
+  // ---------- stacking for nested popovers ----------
+  // Determine a baseline z-index from CSS (fallback to 1000),
+  // and increment for each newly opened popover so nested ones stack on top.
+  var FIRST_POPOVER = document.querySelector('.popover');
+  var BASE_Z = (function () {
+    if (FIRST_POPOVER) {
+      var z = parseInt(window.getComputedStyle(FIRST_POPOVER).zIndex, 10);
+      if (!isNaN(z)) return z;
+    }
+    return 1000;
+  })();
+  var zCounter = BASE_Z;
+
   function setOpen(trigger, pop, open) {
     if (!pop) return;
     if (open) {
@@ -26,6 +39,18 @@
         wrap.setAttribute('aria-hidden', 'false');
       }
 
+      // If opening from within another open popover, elevate this one
+      var parentOpenPop = trigger && trigger.closest('.popover:not([hidden])');
+      if (parentOpenPop) {
+        // Bring this popover to the front by incrementing z-index
+        pop.style.zIndex = String(++zCounter);
+        pop.classList.add('is-elevated');
+      } else {
+        // Still bring the most recently opened popover to top
+        pop.style.zIndex = String(++zCounter);
+        pop.classList.remove('is-elevated');
+      }
+
       // Send focus to heading or close button (if present) so SRs announce dialog
       const headingId = pop.getAttribute('aria-labelledby');
       const heading = headingId && byId(headingId);
@@ -35,6 +60,10 @@
       pop.setAttribute('hidden', 'hidden');
       pop.setAttribute('aria-hidden', 'true');
       if (trigger) trigger.setAttribute('aria-expanded', 'false');
+
+      // Clear any elevation when closing
+      pop.style.zIndex = '';
+      pop.classList.remove('is-elevated');
 
       const wrap = wrapperOf(pop);
       if (wrap && !wrap.querySelector('.popover:not([hidden])')) {
@@ -46,7 +75,11 @@
   }
 
   function closeAllPopovers() {
-    $all('.popover:not([hidden])').forEach((pop) => setOpen(null, pop, false));
+    $all('.popover:not([hidden])').forEach((pop) => {
+      setOpen(null, pop, false);
+      pop.style.zIndex = '';
+      pop.classList.remove('is-elevated');
+    });
     $all('.popover-trigger[aria-expanded="true"]').forEach((t) => t.setAttribute('aria-expanded', 'false'));
   }
 

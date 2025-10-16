@@ -109,6 +109,37 @@
     margin-bottom: 0.75rem;
 }
 
+/* inline figures */
+
+section div div:nth-child(2) section:first-child div main section:nth-child(2) figure {
+    border: unset;
+    padding: unset;
+    margin: 2rem 0rem 2rem 0rem;
+    display: flex;
+    flex-direction: column;
+}
+
+section div div:nth-child(2) section:first-child div main section:nth-child(2) figure .figure-labelline {
+    order: 1;
+}
+
+section div div:nth-child(2) section:first-child div main section:nth-child(2) figure .figure-media {
+    order: 2;
+}
+
+section div div:nth-child(2) section:first-child div main section:nth-child(2) figure .figure-actions {
+    order: 3;
+}
+
+section div div:nth-child(2) section:first-child div main section:nth-child(2) figure figcaption{
+    order: 4;
+    margin-top: 1rem;
+}
+
+
+
+
+
 /* Lock scroll when lightbox open */
 .no-scroll { overflow: hidden; }
 

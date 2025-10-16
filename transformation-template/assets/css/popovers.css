@@ -134,9 +134,11 @@ body .popovers[aria-hidden="false"]::before {
         gap: 0.5rem;
     }
 
-    .popover-section p {
+    .popover-section p,
+    .aff-list li {
         font-size: 0.875rem;
         line-height: 1.25rem;
+        margin-bottom: 0.1rem;
     }
 
 }
@@ -206,9 +208,11 @@ body .popovers[aria-hidden="false"]::before {
         gap: 0.5rem;
     }
 
-    .popover-section p {
+    .popover-section p,
+    .aff-list li {
         font-size: 0.875rem;
         line-height: 1.25rem;
+        margin-bottom: 0.1rem;
     }
 
 }
@@ -280,9 +284,11 @@ body .popovers[aria-hidden="false"]::before {
         gap: 0.5rem;
     }
 
-    .popover-section p {
+    .popover-section p,
+    .aff-list li {
         font-size: 0.875rem;
         line-height: 1.25rem;
+        margin-bottom: 0.1rem;
     }
 
 }
@@ -355,9 +361,11 @@ body .popovers[aria-hidden="false"]::before {
         gap: 0.5rem;
     }
 
-    .popover-section p {
+    .popover-section p,
+    .aff-list li {
         font-size: 0.875rem;
         line-height: 1.25rem;
+        margin-bottom: 0.1rem;
     }
 
 }
@@ -429,9 +437,11 @@ body .popovers[aria-hidden="false"]::before {
         gap: 0.5rem;
     }
 
-    .popover-section p {
+    .popover-section p,
+    .aff-list li {
         font-size: 0.875rem;
         line-height: 1.25rem;
+        margin-bottom: 0.1rem;
     }
 
 }
