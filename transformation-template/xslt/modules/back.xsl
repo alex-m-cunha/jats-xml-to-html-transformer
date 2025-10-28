@@ -337,9 +337,13 @@
         </xsl:variable>
         
         <!-- presence flags (same as masthead) -->
-        <xsl:variable name="has-corresp" select="boolean(xref[@ref-type='corresp']) or boolean(../../author-notes/corresp)"/>
+        <xsl:variable name="has-corresp"
+          select="boolean(xref[@ref-type='corresp'][key('correspById', @rid)])
+            or boolean(../../author-notes/corresp)
+            or (@corresp='yes' and boolean(email))
+            or boolean(email)"/>
         <xsl:variable name="has-orcid"   select="string-length(normalize-space($orcid-url)) &gt; 0"/>
-        <xsl:variable name="has-aff"     select="boolean(xref[@ref-type='aff'])"/>
+        <xsl:variable name="has-aff"     select="boolean(xref[@ref-type='aff'] or aff or //aff[@id])" />
         <xsl:variable name="has-comp"    select="boolean(notes) or boolean(../../author-notes//fn[@fn-type='conflict'])"/>
         
         <!-- The popover itself (same markup you had before) -->
@@ -369,24 +373,23 @@
           <xsl:variable name="is-corresp" select="count(xref[@ref-type='corresp']/@rid) &gt; 0"/>
           
           <!-- Corresponding (only for this corresponding author) -->
-          <xsl:if test="$is-corresp">
+          <xsl:if test="xref[@ref-type='corresp']/@rid[key('correspById', .)]">
             <div class="popover-section">
               <div class="section-title">Corresponding Author</div>
               
-              <!-- Resolve via xref rid(s) → author-notes/corresp -->
-              <xsl:for-each select="xref[@ref-type='corresp']/@rid">
+              <!-- try via resolved rids -->
+              <xsl:for-each select="xref[@ref-type='corresp']/@rid[key('correspById', .)]">
                 <xsl:variable name="c" select="key('correspById', .)[1]"/>
-                <p>
-                  <xsl:choose>
-                    <xsl:when test="$c">
-                      <xsl:apply-templates select="$c/node()"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <span class="u-missing">[Correspondence not found: <xsl:value-of select="."/>]</span>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </p>
+                <p><xsl:apply-templates select="$c/node()"/></p>
               </xsl:for-each>
+              
+              <!-- if there were no resolvable rids but we have inline email, show it -->
+              <xsl:if test="not(xref[@ref-type='corresp']/@rid[key('correspById', .)]) and email">
+                <p>
+                  Corresponding author:
+                  <xsl:value-of select="normalize-space(email)"/>
+                </p>
+              </xsl:if>
             </div>
           </xsl:if>
           
@@ -422,38 +425,53 @@
             <xsl:choose>
               <xsl:when test="$has-aff">
                 <ul class="aff-list">
+                  <!-- referenced affiliations via xref/@rid -->
                   <xsl:for-each select="xref[@ref-type='aff']/@rid">
                     <li>
                       <xsl:variable name="aff" select="key('affById', .)[1]"/>
                       <xsl:choose>
-                        <xsl:when test="$aff"><xsl:apply-templates select="$aff/node()[not(self::label or self::sup)]"/></xsl:when>
-                        <xsl:otherwise><span class="u-missing">[Affiliation not found: <xsl:value-of select="."/>]</span></xsl:otherwise>
+                        <xsl:when test="$aff">
+                          <xsl:apply-templates select="$aff/node()[not(self::label or self::sup)]"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <span class="u-missing">[Affiliation not found: <xsl:value-of select="."/>]</span>
+                        </xsl:otherwise>
                       </xsl:choose>
+                    </li>
+                  </xsl:for-each>
+                  
+                  <!-- inline affiliations directly under contrib -->
+                  <xsl:for-each select="aff">
+                    <li>
+                      <xsl:apply-templates select="node()[not(self::label or self::sup)]"/>
                     </li>
                   </xsl:for-each>
                 </ul>
               </xsl:when>
-              <xsl:otherwise><p>None declared.</p></xsl:otherwise>
+              <xsl:otherwise>
+                <p>None declared.</p>
+              </xsl:otherwise>
             </xsl:choose>
           </div>
           
           <!-- Competing Interests -->
-          <div class="popover-section">
-            <div class="section-title">Competing Interests</div>
-            <xsl:choose>
-              <xsl:when test="$has-comp">
-                <xsl:choose>
-                  <xsl:when test="notes"><xsl:apply-templates select="notes/node()"/></xsl:when>
-                  <xsl:when test="../../author-notes//fn[@fn-type='conflict']">
-                    <xsl:for-each select="../../author-notes//fn[@fn-type='conflict']">
-                      <p><xsl:apply-templates/></p>
-                    </xsl:for-each>
-                  </xsl:when>
-                </xsl:choose>
-              </xsl:when>
-              <xsl:otherwise><p>None declared.</p></xsl:otherwise>
-            </xsl:choose>
-          </div>
+          <xsl:if test="$has-comp">
+            <div class="popover-section">
+              <div class="section-title">Competing Interests</div>
+              
+              <xsl:choose>
+                <xsl:when test="notes">
+                  <xsl:apply-templates select="notes/node()"/>
+                </xsl:when>
+                
+                <xsl:when test="../../author-notes//fn[@fn-type='conflict']">
+                  <xsl:for-each select="../../author-notes//fn[@fn-type='conflict']">
+                    <p><xsl:apply-templates/></p>
+                  </xsl:for-each>
+                </xsl:when>
+              </xsl:choose>
+            </div>
+          </xsl:if>
           
         </div>
       </xsl:for-each>

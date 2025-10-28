@@ -61,8 +61,7 @@
                     </svg>
                 </summary>
                 <xsl:variable name="kw"
-                    select="/article/front/article-meta/article-categories//subject
-                            | /article/front/article-meta//kwd-group/kwd" />
+                    select="/article/front/article-meta/kwd-group/kwd" />
                 <xsl:choose>
                     <xsl:when test="$kw">
                         <ul class="kw-list">
@@ -125,6 +124,28 @@
                             <xsl:apply-templates select="$p/node()"/>
                         </xsl:otherwise>
                     </xsl:choose>
+                    
+                    <!-- DOI link appended inside the same paragraph -->
+                    <xsl:variable name="doi" select="/article/front/article-meta/article-id[@pub-id-type='doi']"/>
+                    <xsl:variable name="doi-str" select="normalize-space($doi)"/>
+                    
+                    <xsl:if test="$doi-str">
+                        <xsl:text> </xsl:text>
+                        <xsl:choose>
+                            <!-- bare DOI like 10.xxxx/... -->
+                            <xsl:when test="starts-with($doi-str, '10.')">
+                                <a class="cite-doi" href="https://doi.org/{$doi-str}" target="_blank" rel="noopener">
+                                    <xsl:text>https://doi.org/</xsl:text><xsl:value-of select="$doi-str"/>
+                                </a>
+                            </xsl:when>
+                            <!-- already a full URL -->
+                            <xsl:otherwise>
+                                <a class="cite-doi" href="{$doi-str}" target="_blank" rel="noopener">
+                                    <xsl:value-of select="$doi-str"/>
+                                </a>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:if>
                 </p>
                 
                 <!-- Button you’ll wire up in JS -->

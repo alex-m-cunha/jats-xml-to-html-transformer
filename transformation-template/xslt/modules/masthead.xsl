@@ -33,10 +33,8 @@ exclude-result-prefixes="xlink">
         <li class="volume">
           <xsl:choose>
             <xsl:when test="$raw-vol!=''">
-              <xsl:text>Vol </xsl:text>
-              <xsl:call-template name="pad-volume">
-                <xsl:with-param name="vol" select="$raw-vol"/>
-              </xsl:call-template>
+              <xsl:text>VOL </xsl:text>
+              <xsl:value-of select="$raw-vol"/>
             </xsl:when>
             <xsl:otherwise>Unspecified Volume</xsl:otherwise>
           </xsl:choose>
@@ -83,9 +81,13 @@ exclude-result-prefixes="xlink">
             </xsl:variable>
   
             <!-- Presence flags (still useful for branch logic inside sections) -->
-            <xsl:variable name="has-corresp" select="boolean(xref[@ref-type='corresp'])"/>
+            <xsl:variable name="has-corresp"
+              select="boolean(xref[@ref-type='corresp'][key('correspById', @rid)])
+                or boolean(../../author-notes/corresp)
+                or (@corresp='yes' and boolean(email))
+                or boolean(email)"/>
             <xsl:variable name="has-orcid"   select="string-length(normalize-space($orcid-url)) &gt; 0"/>
-            <xsl:variable name="has-aff"     select="boolean(xref[@ref-type='aff'])"/>
+            <xsl:variable name="has-aff"     select="boolean(xref[@ref-type='aff'] or aff or //aff[@id])" />
             <xsl:variable name="has-comp"    select="boolean(notes) or boolean(../../author-notes//fn[@fn-type='conflict'])"/>
   
             <li class="author-chip">
@@ -102,7 +104,7 @@ exclude-result-prefixes="xlink">
                 </span>
   
                 <!-- Corresponding marker beside the name, if present -->
-                <xsl:if test="$has-corresp">
+                <xsl:if test="xref[@ref-type='corresp']/@rid[key('correspById', .)]">
                   <span class="corresp" aria-hidden="true">
                     <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12.8333 7H9.33334L8.16667 8.75H5.83334L4.66667 7H1.16667" stroke="#43423E" stroke-linecap="round" stroke-linejoin="round"/>
@@ -175,13 +177,11 @@ exclude-result-prefixes="xlink">
             </li>
           </xsl:if>
           
-          <!-- NEW: Article subjects -->
-          <xsl:if test="article-meta/article-categories/subj-group/subject">
-            <li class="article-subjects">
-              <xsl:for-each select="article-meta/article-categories/subj-group/subject">
-                <xsl:value-of select="normalize-space(.)"/>
-                <xsl:if test="position()!=last()"><xsl:text>; </xsl:text></xsl:if>
-              </xsl:for-each>
+          <!-- Article type (replaces the old "Article subjects" block) -->
+          <xsl:variable name="atype" select="ancestor::article[1]/@article-type"/>
+          <xsl:if test="$atype">
+            <li class="article-type">
+              <xsl:value-of select="translate($atype, '-', ' ')"/>
             </li>
           </xsl:if>
         </ul>

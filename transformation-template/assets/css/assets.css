@@ -114,13 +114,16 @@
 section div div:nth-child(2) section:first-child div main section:nth-child(2) figure {
     border: unset;
     padding: unset;
-    margin: 2rem 0rem 2rem 0rem;
+    margin: 3rem 0rem 2rem 0rem;
     display: flex;
     flex-direction: column;
 }
 
 section div div:nth-child(2) section:first-child div main section:nth-child(2) figure .figure-labelline {
-    order: 1;
+    order: 3;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
 }
 
 section div div:nth-child(2) section:first-child div main section:nth-child(2) figure .figure-media {
@@ -128,12 +131,12 @@ section div div:nth-child(2) section:first-child div main section:nth-child(2) f
 }
 
 section div div:nth-child(2) section:first-child div main section:nth-child(2) figure .figure-actions {
-    order: 3;
+    order: 1;
+    margin-bottom: 1rem;
 }
 
 section div div:nth-child(2) section:first-child div main section:nth-child(2) figure figcaption{
     order: 4;
-    margin-top: 1rem;
 }
 
 

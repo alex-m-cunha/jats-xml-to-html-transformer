@@ -45,21 +45,10 @@
                 </xsl:for-each>
                 
                 <!-- Appendix -->
-                <xsl:if test="/article/back/sec/title = 'Appendix'">
+                <xsl:if test="/article/back/app-group/app[1]">
                     <xsl:variable name="appendix-id">appendix</xsl:variable>
-                    
-                    <!-- Label: use <title> if present; else "Appendix" -->
-                    <xsl:variable name="appendix-title">
-                        <xsl:choose>
-                            <xsl:when test="normalize-space(/article/back/sec/title)!=''">
-                                <xsl:value-of select="normalize-space(/article/back/sec/title)"/>
-                            </xsl:when>
-                            <xsl:otherwise>Appendix</xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:variable>
-                    
                     <li>
-                        <a href="#{$appendix-id}"><xsl:value-of select="$appendix-title"/></a>
+                        <a href="#{$appendix-id}">Appendix</a>
                     </li>
                 </xsl:if>
                 

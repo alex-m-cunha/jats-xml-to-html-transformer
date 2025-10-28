@@ -146,7 +146,9 @@
     margin-bottom: -1px;
 }
 
-
+.article-type {
+    text-transform: uppercase;
+}
 
 
 

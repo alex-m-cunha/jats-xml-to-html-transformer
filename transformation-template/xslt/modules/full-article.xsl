@@ -17,7 +17,17 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:apply-templates select="node()"/>
     
     <!-- Appendix -->
-    <xsl:apply-templates select="/article/back/sec[normalize-space(title) = 'Appendix']"/>
+    <!-- Grab the first appendix node -->
+    <xsl:variable name="app" select="/article/back/app-group/app[1]"/>
+    
+    <!-- Render the Appendix section somewhere in the body -->
+    <xsl:if test="$app">
+      <div id="appendix" class="appendix">
+        <h2>Appendix</h2>
+        <!-- Show everything inside <app> except its original title -->
+        <xsl:apply-templates select="$app/node()[not(self::title)]"/>
+      </div>
+    </xsl:if>
     
     <!-- References -->
     <xsl:apply-templates select="/article/back/ref-list" mode="list"/>

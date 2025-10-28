@@ -224,4 +224,7 @@
     fill: #43423E;
 }
 
+.cite-doi {
+  word-break: break-all;  
+}
 
